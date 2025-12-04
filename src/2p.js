@@ -6,8 +6,7 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'ArrowLeft') window.location.href = "1p.html";
 });
 
-// src/2p-matter.js
-import Matter from "matter-js";
+/* global Matter */
 
 const {
   Engine,

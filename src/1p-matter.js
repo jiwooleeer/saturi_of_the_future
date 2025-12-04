@@ -1,12 +1,13 @@
+/* global Matter */
+// src/1p-matter.js
+
 /* --------- 방향키 이벤트 --------- */
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") window.location.href = "2p.html";
   if (e.key === "ArrowLeft") window.location.href = "main.html";
 });
 
-// 여기부터 Matter.js
-console.log("1p-matter.js top reached");
-
+/* --------- Matter.js 세팅 --------- */
 const {
   Engine,
   Runner,
@@ -16,8 +17,9 @@ const {
   Mouse,
   MouseConstraint,
   Events,
-  Sleeping
+  Sleeping,
 } = Matter;
+
 
 window.addEventListener("load", () => {
   console.log("window load in 1p-matter.js");

@@ -1,5 +1,5 @@
+/* global Matter */
 // src/4p.js
-import Matter from "matter-js";
 
 const {
   Engine,
@@ -10,8 +10,9 @@ const {
   Mouse,
   MouseConstraint,
   Events,
-  Body
+  Body,
 } = Matter;
+
 
 /* -------------------------------------------------
  *  방향키 페이지 이동
