@@ -1,8 +1,7 @@
-  /* --------- 방향키 이벤트 --------- */
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowRight') window.location.href = "4p.html";
-  if (e.key === 'ArrowLeft') window.location.href = "2p.html";
+/* --------- 방향키 이벤트 --------- */
+document.addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") window.location.href = "4p.html";
+  if (e.key === "ArrowLeft") window.location.href = "2p.html";
 });
 
 // 타이핑 내용
@@ -16,7 +15,6 @@ const text = `
 function startTyped() {
   if (!window.Typed) return;
 
-  // 실제 타이핑 실행 부
   new Typed("#typed-3p", {
     strings: [text],
     typeSpeed: 70,
@@ -27,19 +25,22 @@ function startTyped() {
   });
 }
 
-// 타이핑 딜레이(원하면 조절 가능)
-const TYPE_DELAY = 1300; // ms, 지금은 2초 딜레이
+const TYPE_DELAY = 1300;
 
-// 폰트 로딩 이후에 딜레이 주고 실행
-window.addEventListener("load", () => {
+// 폰트 적용 완료까지 기다렸다가 시작
+window.addEventListener("load", async () => {
   const target = document.getElementById("typed-3p");
   if (!target) return;
 
-  if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(() => {
-      setTimeout(startTyped, TYPE_DELAY);
-    });
-  } else {
-    setTimeout(startTyped, TYPE_DELAY);
+  try {
+    // 폰트 다운로드 + 렌더 적용까지
+    if (document.fonts) {
+      await document.fonts.ready;
+      await document.fonts.load("1em rixsingose-pro");
+    }
+  } catch (e) {
+    console.warn("폰트 로드 중 이슈", e);
   }
+
+  setTimeout(startTyped, TYPE_DELAY);
 });
