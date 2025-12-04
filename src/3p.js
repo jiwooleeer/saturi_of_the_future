@@ -25,22 +25,27 @@ function startTyped() {
   });
 }
 
+// 타이핑 요소를 폰트 캐싱용으로 한 번 세팅
+const dummyTarget = document.getElementById("typed-3p");
+dummyTarget.innerHTML = text;
+dummyTarget.style.visibility = "hidden";
+
 const TYPE_DELAY = 1300;
 
-// 폰트 적용 완료까지 기다렸다가 시작
 window.addEventListener("load", async () => {
-  const target = document.getElementById("typed-3p");
-  if (!target) return;
-
-  try {
-    // 폰트 다운로드 + 렌더 적용까지
-    if (document.fonts) {
+  if (document.fonts && document.fonts.ready) {
+    try {
       await document.fonts.ready;
       await document.fonts.load("1em rixsingose-pro");
+    } catch(e) {
+      console.warn("폰트 로드 문제", e);
     }
-  } catch (e) {
-    console.warn("폰트 로드 중 이슈", e);
   }
 
-  setTimeout(startTyped, TYPE_DELAY);
+  // 폰트 적용 끝난 후 타이핑 시작
+  setTimeout(() => {
+    dummyTarget.innerHTML = "";
+    dummyTarget.style.visibility = "visible";
+    startTyped();
+  }, TYPE_DELAY);
 });
