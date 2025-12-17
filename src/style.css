@@ -29,7 +29,7 @@ position: absolute;
 .explain{
   position: absolute;
   left: 50%;
-  bottom: 20px;           /* 원하는 만큼 위로 띄우기 */
+  bottom: 10px;           /* 원하는 만큼 위로 띄우기 */
   transform: translateX(-50%);
 }
 
@@ -38,7 +38,7 @@ position: absolute;
 .poster_container{
   display: flex;
   position: relative;
-  margin-top: 150px;
+  margin-top: 190px;
   width: 1320px;            
   height: 720px;             
   transform: scale(var(--scale));
