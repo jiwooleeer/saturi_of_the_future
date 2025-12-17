@@ -18,7 +18,7 @@ const {
  *  방향키 페이지 이동
  * ------------------------------------------------- */
 document.addEventListener("keydown", (e) => {
-  if (e.key === "ArrowRight") window.location.href = "5p.html";
+  if (e.key === "ArrowRight") window.location.href = "ks_zine.html";
   if (e.key === "ArrowLeft") window.location.href = "3p.html";
 });
 

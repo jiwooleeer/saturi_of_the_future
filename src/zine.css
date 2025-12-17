@@ -1,0 +1,676 @@
+body {
+  background:#F1F1F1;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+
+
+.canvas{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;  
+  --scale: min(calc(100vw / 1920), calc(100vh / 1080));
+  position: relative;
+}
+
+
+.ks_1_container{
+    display: grid;
+    position: absolute;
+width: 100vw;
+  height: 100vh;
+    grid-template-columns: repeat(64, 30px);
+  grid-template-rows: repeat(36, 30px); 
+  gap: 0px;
+    scale: 0.95;
+    transform: translateY(-20px);
+}
+#ks1-1  { grid-column: 6; grid-row: 21; } /* 어 */
+#ks1-2  { grid-column: 11; grid-row: 19; } /* 디 */
+#ks1-3  { grid-column: 16; grid-row: 17; } /* 까 */
+#ks1-4  { grid-column: 21; grid-row: 15; } /* 지 */
+#ks1-5  { grid-column: 26; grid-row: 13; } /* 올 */
+#ks1-6  { grid-column: 31; grid-row: 11; } /* 라 */
+#ks1-7  { grid-column: 36; grid-row: 9; } /* 가 */
+#ks1-8  { grid-column: 41; grid-row: 7; } /* 는 */
+#ks1-9  { grid-column: 46; grid-row: 5; } /* 거 */
+#ks1-10 { grid-column: 51; grid-row: 3; } /* 에 */
+#ks1-11 { grid-column: 56; grid-row: 5; } /* 요 */
+/* 계단식 딜레이 */
+.ks_1_container .ks1:nth-child(1)  { animation-delay: 0s;   }
+.ks_1_container .ks1:nth-child(2)  { animation-delay: 0.08s; }
+.ks_1_container .ks1:nth-child(3)  { animation-delay: 0.16s; }
+.ks_1_container .ks1:nth-child(4)  { animation-delay: 0.254s; }
+.ks_1_container .ks1:nth-child(5)  { animation-delay: 0.32s; }
+.ks_1_container .ks1:nth-child(6)  { animation-delay: 0.40s; }
+.ks_1_container .ks1:nth-child(7)  { animation-delay: 0.48s; }
+.ks_1_container .ks1:nth-child(8)  { animation-delay: 0.56s; }
+.ks_1_container .ks1:nth-child(9)  { animation-delay: 0.64s; }
+.ks_1_container .ks1:nth-child(10) { animation-delay: 0.72s; }
+.ks_1_container .ks1:nth-child(11) { animation-delay: 0.80s; }
+
+@keyframes ks-bounce-up {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-35px); } /* 올라가는 높이 */
+  100% { transform: translateY(0); }
+}
+/* 컨테이너에는 animation 빼고, 자식들에만 줘 */
+.ks_1_container .ks1,
+.ks_2_container .ks2 {
+  animation-name: ks-bounce-up;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+
+
+
+.ks_2_container{
+    display: grid;
+    position: absolute;
+width: 100vw;
+  height: 100vh;
+    grid-template-columns: repeat(64, 30px);
+  grid-template-rows: repeat(36, 30px); 
+  gap: 0px;
+    scale: 0.95;
+    transform: translateY(-20px);
+
+}
+.ks_2_container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.3) 1px, transparent 1px);
+  background-size: 30px 30px; /* 블럭 크기에 맞춘 칸 */
+  pointer-events: none;
+  z-index: 50;
+  visibility: hidden; 
+}
+
+#ks2-1  { grid-column: 26; grid-row: 23; }
+#ks2-2  { grid-column: 31; grid-row: 21; } 
+#ks2-3  { grid-column: 36; grid-row: 19; } 
+#ks2-4  { grid-column: 41; grid-row: 21; } 
+#ks2-5  { grid-column: 46; grid-row: 23; } 
+#ks2-6  { grid-column: 51;  grid-row: 21; } 
+#ks2-7  { grid-column: 56; grid-row: 23; } 
+
+.ks_2_container .ks2:nth-child(1) { animation-delay: 0.5s; }
+.ks_2_container .ks2:nth-child(2) { animation-delay: 1.58s; }
+.ks_2_container .ks2:nth-child(3) { animation-delay: 1.66s; }
+.ks_2_container .ks2:nth-child(4) { animation-delay: 1.74s; }
+.ks_2_container .ks2:nth-child(5) { animation-delay: 1.82s; }
+.ks_2_container .ks2:nth-child(6) { animation-delay: 1.90s; }
+.ks_2_container .ks2:nth-child(7) { animation-delay: 1.98s; }
+
+
+/*전라도*/
+.jr{
+  display: block;
+  position: absolute;
+  scale: 0.95;
+
+  animation-name: region-bounce-up;
+  animation-duration: 0.6s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: both;
+}
+
+/* 위치 + 시간차 */
+#jr1 { top:75px; left:250px; animation-delay: 0.5s; }
+#jr2 { top:290px; left:610px; animation-delay: 0.7s; }
+#jr3 { top:560px; left:900px; animation-delay: 0.9s; }
+
+/*충청도*/
+.cc{
+  display: block;
+  position: absolute;
+  scale: 0.95;
+
+  animation: region-bounce-up 0.6s ease-out both;
+}
+
+#cc1 { top:50px;  left:30px;  animation-delay: 0.3s; }
+#cc2 { top:150px; left:500px; animation-delay: 0.6s; }
+#cc3 { top:370px; left:30px;  animation-delay: 0.9s; }
+
+/*강원도*/
+.kw{
+  display: block;
+  position: absolute;
+  scale: 0.95;
+
+  animation: region-bounce-up 0.6s ease-out both;
+}
+
+#kw1 { top:60px;  left:30px;  animation-delay: 0.5s; }
+#kw2 { top:550px; left:400px; animation-delay: 0.14s; }
+
+/*제주도*/
+.jj{
+  display: block;
+  position: absolute;
+  scale: 0.95;
+
+  animation: region-bounce-up 0.6s ease-out both;
+}
+
+#jj1 { top:70px;  left:60px;   animation-delay: 0.3s; }
+#jj2 { top:160px; left:560px;  animation-delay: 0.6s; }
+#jj3 { top:440px; left:1292px; animation-delay: 0.9s; }
+#jj4 { top:620px; left:960px;  animation-delay: 1.2s; }
+
+@keyframes region-bounce-up {
+  0% {
+    transform: translateY(0) scale(0.95);
+  }
+  40% {
+    transform: translateY(-35px) scale(0.95);
+  }
+  100% {
+    transform: translateY(0) scale(0.95);
+  }
+}
+
+
+
+#nextpage_down {
+  position: absolute;
+  bottom: 40px;              /* 페이지 맨 아래에서 띄우고 싶은 만큼 */
+  left: 50%;
+  transform: translateX(-50%) rotate(90deg);
+  z-index: 1;
+  opacity: 0;
+
+  /* 3.5초 뒤부터: 처음 한 번은 서서히 나타나고 이후엔 계속 위↔아래 */
+  animation: nextpage-appear-loop 3.2s ease-in-out 0.7s infinite;
+}
+#nextpage{
+width: 50px;
+position: absolute;
+bottom: 450px;
+right: 70px;
+z-index: 1;
+
+opacity: 0;
+pointer-events: none;    /* 클릭 안 되게 (필요 없으면 지워도 됨) */
+
+  animation: nextpage-show 1s ease-out 5s forwards,
+             nextpage-loop 0.5s ease-in-out 4s infinite;
+}
+
+@keyframes nextpage-show {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+
+
+/*중간부분*/
+.blank{
+    width: 100%;
+    height: 900px;
+    position: relative;
+    bottom: 0px;
+    left: 0;
+    z-index: -1;
+}
+
+#ks_blank{ background: linear-gradient(180deg, #FF0561 20%, #F1F1F1 100%);}
+#jr_blank{ background: linear-gradient(180deg, #00B7AB 20%, #F1F1F1 100%);}
+#cc_blank{ background: linear-gradient(180deg, #90C85F 20%, #F1F1F1 100%);}
+#kw_blank{ background: linear-gradient(180deg, #F6C500 20%, #F1F1F1 100%);}
+#jj_blank{ background: linear-gradient(180deg, #FF961E 20%, #F1F1F1 100%);}
+
+.explain1{
+    position: absolute;
+    top: 250px;
+    left: 64px;
+    z-index: 1;
+  transform: translateY(40px);
+
+}
+
+
+
+.explain2{
+    position: absolute;
+    top: 450px;
+    left: 550px;
+    z-index: 1;
+
+}
+
+
+
+
+
+
+/*아래부분*/
+.canvas2{
+  width: 100vw;
+  height: 950px;
+  display: flex;
+  position: relative;
+  flex-direction: column;  
+  --scale: min(calc(100vw / 1920), calc(100vh / 1080));
+  background-color: #F1F1F1;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.canvas2.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.title{
+    position: absolute;
+    top: 0px;
+    left: 60px;
+}
+
+#forever_text{
+  position: absolute;
+  width: 407px;
+  top: 200px;
+  left: 60px;
+
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 150%;
+  color: black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name{
+  position: absolute;
+  top: -1px;   /* 테두리랑 딱 맞게 -1px */
+  left: -1px;
+  z-index: 2;
+
+  color: white;
+
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: 27px;
+  line-height: 1;
+}
+.ks_name{  background-color: #FF0561;}
+.jr_name{  background-color: #00B7AB;}
+.cc_name{  background-color: #90C85F;}
+.kw_name{  background-color: #F6C500;}
+.jj_name{  background-color: #FF961E;}
+
+.line{
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: 37px;
+  text-align: center;
+  cursor: default;      /* I자 커서 말고 일반 화살표로 */
+  user-select: none;    /* 드래그도 안 되게 (선택 막기, 선택 가능하게 두고 싶으면 이 줄은 빼) */
+}
+
+.ks_line{  color: #FF0561;}
+.jr_line{  color: #00B7AB;}
+.cc_line{  color: #90C85F;}
+.kw_line{  color: #F6C500;}
+.jj_line{  color: #FF961E;}
+
+
+/*이니시*/
+.inishi{
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+width: 400px;
+  top: 100px;
+  left: 780px;
+}
+
+.ks_inishi{   height: 270px;}
+.jr_inishi{   height: 350px;}
+.cc_inishi{   height: 270px;}
+.kw_inishi{   height: 210px;}
+.jj_inishi{   height: 270px;}
+
+
+#inishi_name {
+  width: 110px;
+  height: 55px;
+}
+
+#inishi_text {
+  position: absolute;      /* 흰 박스 전체를 덮게 */
+  inset: 0;                /* top, right, bottom, left = 0 */
+
+  display: flex;
+ justify-content: flex-start; /* 🟡 위부터 정렬 */
+  align-items: center;
+  flex-direction: column;
+
+  gap: 30px;
+
+  padding-top: 90px;
+  box-sizing: border-box;      
+
+}
+.explain3{
+    position: absolute;
+    top: 30px;
+    left: 780px;
+    width: 400px;
+}
+
+
+/*특수어휘*/
+.vocab{
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+
+  width: 400px;
+  left: 780px;
+}
+
+.ks_vocab{   height: 350px; top: 400px;}
+.jr_vocab{   height: 410px; top: 480px;}
+.cc_vocab{   height: 350px; top: 400px;}
+.kw_vocab{   height: 270px; top: 340px;}
+.jj_vocab{   height: 410px; top: 400px;}
+
+#vocab_name {
+  width: 140px;
+  height: 55px;
+}
+
+#vocab_text {
+  position: absolute;      /* 흰 박스 전체를 덮게 */
+  inset: 0;                /* top, right, bottom, left = 0 */
+
+  display: flex;
+  justify-content: flex-start; /* 🟡 위부터 정렬 */
+  align-items: center;
+  flex-direction: column;
+
+  gap: 30px;
+
+  padding-top: 90px; /* ✨ 위쪽만 여백 */
+  box-sizing: border-box;             /* ⭐ 글자 사이 간격 (Figma의 Gap) */
+}
+
+
+/*어미*/
+.ending{
+  background-color: white;
+  border: 1px solid black;
+  position: absolute;
+
+  width: 400px;
+  top: 100px;
+  left: 1215px;
+}
+
+.ks_ending{  height: 580px;}
+.jr_ending{   height: 410px;}
+.cc_ending{   height: 410px;}
+.kw_ending{   height: 410px;}
+.jj_ending{   height: 410px;}
+
+
+#ending_name {
+  width: 90px;
+  height: 55px;
+}
+
+#ending_text {
+  position: absolute;      /* 흰 박스 전체를 덮게 */
+  inset: 0;                /* top, right, bottom, left = 0 */
+
+  display: flex;
+  justify-content: flex-start; /* 🟡 위부터 정렬 */
+  align-items: center;
+  flex-direction: column;
+
+  gap: 30px;
+
+  padding-top: 90px; /* ✨ 위쪽만 여백 */
+  box-sizing: border-box;  
+}
+
+
+.hay{
+  position: absolute;
+
+  left: 1215px;
+  width: 400px;
+  height: 170px;
+  z-index: 2;
+  padding: 24px 32px 22px;
+
+  color: white;
+  border: 1px solid black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  box-sizing: border-box;
+}
+
+.ks_hay{  background-color: #FF0561; top: 710px;}
+.jr_hay{  background-color: #00B7AB; top: 540px;}
+.cc_hay{  background-color: #90C85F; top: 540px;}
+.kw_hay{  background-color: #F6C500; top: 540px;}
+.jj_hay{  background-color: #FF961E; top: 540px;}
+
+
+.hay-title {
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: 23px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* 인풋 감싸는 박스 + 밑줄 */
+.hay-input-wrapper {
+  width: 100%;
+  margin-top: 26px;
+
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 6px;
+
+  display: flex;
+  align-items: center;
+}
+
+
+/* 입력 영역 박스 + 밑줄은 그대로 */
+.hay-input-wrapper {
+  width: 100%;
+  margin-top: 26px;
+
+  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  padding-bottom: 6px;
+
+  display: flex;
+  align-items: center;
+}
+
+.hay-input-wrapper:focus-within {
+  border-bottom-color: #ffffff;
+}
+
+/* 실제 입력되는 div */
+.hay-editable {
+  width: 100%;
+  min-height: 24px;
+  outline: none;
+  border: none;
+
+  font-family: "rixsingose-pro", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.4;
+  text-align: center;
+
+  color: #ffffff;
+
+  /* 폰트 합성/두께 합성 금지 */
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 플레이스홀더: 내용이 비어있을 때만 표시 */
+.hay-editable:empty::before {
+  content: attr(data-placeholder);
+  display: block;
+
+  font-family: "rixsingose-pro", sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.4;
+  text-align: center;
+
+  color: rgba(255, 255, 255);
+  pointer-events: none;
+}
+
+/* 캐럿 컬러는 전체에 걸어주기 */
+.hay-editable {
+  caret-color: #ffffff;
+}
+.hay-editable,
+.hay-editable:empty::before {
+  font-family: "Apple SD Gothic Neo", sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+}
+
+
+.nextpage{
+width: 50px;
+position: absolute;
+top: 509px;
+right: 40px;
+z-index: 1;
+
+  opacity: 0;              /* 처음엔 안 보이게 */
+  pointer-events: none;    /* 클릭 안 되게 (필요 없으면 지워도 됨) */
+
+  animation: nextpage-show 1s ease-out 5s forwards,
+             nextpage-loop 0.5s ease-in-out 4s infinite;
+}
+
+@keyframes nextpage-show {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+#ks-canvas {
+  position: relative;  /* 이걸 기준으로 absolute 좌표 계산 */
+}
+
+#floating-explain {
+  position: absolute;   /* 페이지 기준 */
+  pointer-events: none;
+  display: none;
+  z-index: 999;
+}
+
+#floating-explain img {
+  display: block;
+  max-width: none;   /* 원본 크기 그대로 */
+  height: auto;
+}
+
+
+
+
+
+
+/* 🔻 Matter가 만들어주는 <canvas>도 강제로 전체 화면으로 */
+#matter-container {
+  position: absolute;   /* ⭐ 이제 fixed 말고 absolute */
+  inset: 0;             /* canvas2 안을 꽉 채우기 */
+  pointer-events: none; /* 글자 위에서도 스크롤/클릭 되게 */
+  z-index: 3;           /* 카드들 위에 살짝만 */
+}
+
+/* Matter가 만든 <canvas> 백그라운드 제거 */
+#matter-container canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: transparent !important;
+}
+/* 떨어지는 글자 스타일 */
+.falling-text {
+  position: absolute;        /* ⭐ 좌표를 transform 기준으로 정확히 쓰게 */
+  left: 0;
+  top: 0;
+
+  white-space: nowrap;
+
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: 25px;
+  color: var(--accent);
+
+  text-align: center;
+  pointer-events: none;
+  z-index: 4;                /* 캔버스·박스들보다 위에 오게 */
+}
+/* 기본값 (혹시 data-region 없을 때) */
+:root{
+  --accent: #FF0561;
+}
+
+/* 지역별 포인트 컬러 */
+.canvas2[data-region="ks"]{ --accent: #FF0561; } /* 경상 */
+.canvas2[data-region="jr"]{ --accent: #00B7AB; } /* 전라 */
+.canvas2[data-region="cc"]{ --accent: #90C85F; } /* 충청 */
+.canvas2[data-region="kw"]{ --accent: #F6C500; } /* 강원 */
+.canvas2[data-region="jj"]{ --accent: #FF961E; } /* 제주 */
+
+

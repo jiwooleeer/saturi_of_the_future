@@ -55,7 +55,7 @@ app.post("/api/tts", async (req, res) => {
   input: { text },
   voice: {
     languageCode: "ko-KR",
-    name: "ko-KR-Standard-E", // 일단 이걸로 테스트 (여자 음성)
+    name: "ko-KR-Neural2-B", // 일단 이걸로 테스트 (여자 음성)
   },
   audioConfig: {
     audioEncoding: "MP3",

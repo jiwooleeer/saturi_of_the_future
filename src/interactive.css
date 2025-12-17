@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
   
 }
+#explain strong{
+  font-weight: 700;
+}
+
 
 #main_title {
   position: absolute;
@@ -24,6 +28,12 @@ left:60px;
   font-style: normal;
   font-size: 23px;
   line-height: 150%;
+}
+.explain1{
+  position: absolute;
+  left: 50%;
+  bottom: 100px;           /* 원하는 만큼 위로 띄우기 */
+  transform: translateX(-50%);
 }
 
 
@@ -51,7 +61,7 @@ left:60px;
     height: 300px;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -60%);
 }
 
 .back{
@@ -112,9 +122,9 @@ left:60px;
 
 .word {
   display: block;
-  margin-left: -1px;
-  margin-top: -1px 
+ 
 }
+
 .first_line .word:first-child,
 .second_line .word:first-child,
 .third_line .word:first-child {
@@ -129,3 +139,76 @@ left:60px;
   cursor: pointer;
 }
 
+/* ===== 단어 슬롯 (필수) ===== */
+.word-slot{
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+
+  margin-left: -1px;
+  margin-top: -1px;
+}
+
+.first_line .word-slot:first-child,
+.second_line .word-slot:first-child,
+.third_line .word-slot:first-child{
+  margin-left: 0;
+}
+
+/* 기본 단어 이미지: 레이아웃을 잡아야 하니까 relative */
+.word{
+  display: block;
+}
+
+/* 현재 보여지는 1장(레이아웃 담당) */
+.word.current{
+  position: relative;
+}
+
+/* 전환할 때 겹쳐지는 레이어들 */
+.word.layer{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+/* 메인페이지처럼 슬롯 자체가 위아래로 튕기는 애니 */
+@keyframes slot-bounce-up {
+  0%   { transform: translateY(0); }
+  35%  { transform: translateY(-28px); }
+  100% { transform: translateY(0); }
+}
+
+/* 애니 실행 클래스 */
+.word-slot.bounce {
+  animation: slot-bounce-up 0.42s ease both;
+}
+
+
+
+
+.word-slot.sound-active {
+  animation: sound-bounce 260ms ease-out;
+}
+
+/* 사운드 재생 중 카드 바운스 */
+.word-slot{
+  display: inline-block;
+  will-change: transform;
+    cursor: pointer;
+
+}
+
+.word-slot.sound-active{
+  animation: sound-bounce 180ms ease-out;
+}
+
+@keyframes sound-bounce{
+  0%   { transform: translateY(0); }
+  45%  { transform: translateY(-18px); }
+  100% { transform: translateY(0); }
+}

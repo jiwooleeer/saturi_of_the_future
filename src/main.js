@@ -6,14 +6,8 @@
 const DIALECTS = {
   ks: {
     titleSrc: "./mainpage/ks/ks_title.svg",
-
-    // 첫 줄 위치
-    firstTransforms: [0, 60, 0, -60, -120, 0, -60, 0],
-
-    // 둘째 줄 프레임 위치
-    secondTransforms: [-60, -60, -60, -120, -180, -120, -120, -120],
-
-    // 경상도 화살표 이미지
+    firstTransforms: [0, 0, 0, -60, -120, -60, -60, -60],
+    secondTransforms: [-60, -120, -60, -120, -180, -180, -120, -180],
     triangleSrcs: [
       "./mainpage/ks/up.svg",
       "./mainpage/ks/down.svg",
@@ -24,13 +18,8 @@ const DIALECTS = {
       "./mainpage/ks/up.svg",
       "./mainpage/ks/down.svg"
     ],
-
-    // 경상도 화살표 높이
-    triangleTransforms: [-60, -60, -60, -120, -180, -120, -120, -120],
-
-    // 경상도 정답 패턴
+    triangleTransforms: [-60, -120, -60, -120, -180, -180, -120, -180],
     trianglePattern: ["up", "down", "up", "up", "up", "down", "up", "down"],
-    
     audio: [
       "./mainpage/audio/toypiano_5.wav",
       "./mainpage/audio/toypiano_3.wav",
@@ -45,14 +34,8 @@ const DIALECTS = {
 
   jr: {
     titleSrc: "./mainpage/jr/jr_title.svg",
-
-    // 전라도 첫 줄 위치
-    firstTransforms: [60, 0, -60, -120, 0, -120, 0, -60],
-
-    // 전라도 둘째 줄 프레임 위치
-    secondTransforms: [-60, -60, -120, -180, -120, -180, -120, -120],
-
-    // 전라도 화살표 이미지
+    firstTransforms: [0, 0, -60, -120, -60, -120, -60, -60],
+    secondTransforms: [-120, -60, -120, -180, -180, -180, -180, -120],
     triangleSrcs: [
       "./mainpage/jr/down.svg",
       "./mainpage/jr/up.svg",
@@ -63,13 +46,8 @@ const DIALECTS = {
       "./mainpage/jr/down.svg",
       "./mainpage/jr/up.svg"
     ],
-
-    // 전라도 화살표 높이 (원하는 대로 조절)
-    triangleTransforms: [-60, -60, -120, -180, -120, -180, -120, -120],
-
-    // 전라도 정답 패턴
+    triangleTransforms: [-120, -60, -120, -180, -180, -180, -180, -120],
     trianglePattern: ["down", "up", "up", "up", "down", "up", "down", "up"],
-    
     audio: [
       "./mainpage/audio/toypiano_4.wav",
       "./mainpage/audio/toypiano_5.wav",
@@ -80,11 +58,95 @@ const DIALECTS = {
       "./mainpage/audio/toypiano_4.wav",
       "./mainpage/audio/toypiano_5.wav"
     ]
+  },
+
+  cc: {
+    titleSrc: "./mainpage/cc/cc_title.svg",
+    firstTransforms: [0, -60, 0, 0, -120, -60, 0, -60],
+    secondTransforms: [-120, -120, -120, -120, -180, -180, -120, -120],
+    triangleSrcs: [
+      "./mainpage/cc/down.svg",
+      "./mainpage/cc/up.svg",
+      "./mainpage/cc/right.svg",
+      "./mainpage/cc/right.svg",
+      "./mainpage/cc/up.svg",
+      "./mainpage/cc/down.svg",
+      "./mainpage/cc/down.svg",
+      "./mainpage/cc/up.svg"
+    ],
+    triangleTransforms: [-120, -120, -120, -120, -180, -180, -120, -120],
+    trianglePattern: ["down", "up", "right", "right", "up", "down", "down", "up"],
+    audio: [
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_3.wav",
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_6.wav",
+      "./mainpage/audio/toypiano_7.wav",
+      "./mainpage/audio/toypiano_4.wav",
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_4.wav"
+    ]
+  },
+
+  kw: {
+    titleSrc: "./mainpage/kw/kw_title.svg",
+    firstTransforms: [-60,-60,-60,-60,-60,-60,-60,-60],
+    secondTransforms: [-120, -180,-120, -180,-120, -180, -120, -180],
+    triangleSrcs: [
+      "./mainpage/kw/up.svg",
+      "./mainpage/kw/down.svg",
+      "./mainpage/kw/up.svg",
+      "./mainpage/kw/down.svg",
+      "./mainpage/kw/up.svg",
+      "./mainpage/kw/down.svg",
+      "./mainpage/kw/up.svg",
+      "./mainpage/kw/down.svg"
+    ],
+    triangleTransforms: [-120, -180, -120, -180,-120, -180, -120, -180],
+    trianglePattern: ["up", "down", "up", "down", "up", "down", "up", "down"],
+    audio: [
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_3.wav",
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_6.wav",
+      "./mainpage/audio/toypiano_7.wav",
+      "./mainpage/audio/toypiano_4.wav",
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_4.wav"
+    ]
+  },
+
+  jj: {
+    titleSrc: "./mainpage/jj/jj_title.svg",
+    firstTransforms: [0, 0, 0, -60,  -60,  -60,  -60, 0],
+    secondTransforms: [-120, -120, -120, -120, -180, -120, -180, -120],
+    triangleSrcs: [
+      "./mainpage/jj/right.svg",
+      "./mainpage/jj/right.svg",
+      "./mainpage/jj/right.svg",
+      "./mainpage/jj/up.svg",
+      "./mainpage/jj/down.svg",
+      "./mainpage/jj/up.svg",
+      "./mainpage/jj/down.svg",
+      "./mainpage/jj/down.svg"
+    ],
+    triangleTransforms: [-120, -120, -120, -120, -180, -120, -180, -120],
+    trianglePattern: ["right", "right", "right", "up", "down", "up", "down", "down"],
+    audio: [
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_3.wav",
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_6.wav",
+      "./mainpage/audio/toypiano_7.wav",
+      "./mainpage/audio/toypiano_4.wav",
+      "./mainpage/audio/toypiano_5.wav",
+      "./mainpage/audio/toypiano_4.wav"
+    ]
   }
 };
 
 // 자동 순환 순서
-const DIALECT_ORDER = ["ks", "jr"];
+const DIALECT_ORDER = ["ks", "jr", "cc", "kw", "jj"];
 
 // ================================
 // 2. 전역 상태
@@ -111,26 +173,19 @@ let keyLineImgsRef = [];
 window.addEventListener("DOMContentLoaded", () => {
   const canvas = document.querySelector(".canvas");
   const titleImg = document.getElementById("ks_title");
-  const firstLineImgs = Array.from(
-    document.querySelectorAll(".first_line img")
-  );
-  const secondBlocks = Array.from(
-    document.querySelectorAll(".secound_line .block")
-  );
-  const keyLineImgs = Array.from(
-    document.querySelectorAll(".key_line img")
-  );
+  const firstLineImgs = Array.from(document.querySelectorAll(".first_line img"));
+  const secondBlocks = Array.from(document.querySelectorAll(".secound_line .block"));
+  const keyLineImgs = Array.from(document.querySelectorAll(".key_line img"));
   const explainImg = document.querySelector(".explain");
 
   // 전역 레퍼런스 저장
   secondBlocksRef = secondBlocks;
   keyLineImgsRef = keyLineImgs;
 
-  // 1) 처음 로드시 경상도 상태로 세팅
+  // 1) 처음 로드시 ks 상태로 세팅
   applyDialectInstant("ks", { titleImg, firstLineImgs, secondBlocks });
 
   // 2) 자동 전환 타이머
-  //    🔸 속도 바꾸고 싶으면 여기 2000을 수정 (ms 단위)
   cycleTimer = setInterval(() => {
     if (isLocked || isAnimating) return;
     const nextId = getNextDialectId(currentDialect);
@@ -141,32 +196,30 @@ window.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("keydown", (e) => {
     // --- 스페이스 : 현재 떠있는 지역 선택 ---
     if (e.code === "Space") {
-      if (isLocked || isAnimating) return;   // 애니 중이면 무시
+      if (isLocked || isAnimating) return;
 
       isLocked = true;
       clearInterval(cycleTimer);
 
-      if (explainImg) {
-        explainImg.src = "./mainpage/explan.svg";
-      }
+      if (explainImg) explainImg.src = "./mainpage/explan.svg";
 
-      // 지금 화면에 보이는 지역을 선택으로 고정
       selectedDialect = visibleDialect;
 
-      // 선택된 지역 기준으로 화살표 세팅
       showArrowsFor(selectedDialect, { canvas, keyLineImgs });
 
       arrowGameActive = true;
       userInput = [];
-      currentIndex = 0;   // ▶ 첫 블럭부터 시작
+      currentIndex = 0;
       return;
     }
 
     // --- 방향키 입력 ---
     if (!arrowGameActive) return;
-    if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
 
-    e.preventDefault(); // 스크롤 방지
+    // ✅ right까지 받기
+    if (e.key !== "ArrowUp" && e.key !== "ArrowDown" && e.key !== "ArrowRight") return;
+
+    e.preventDefault();
     handleArrowInput(e.key);
   });
 });
@@ -181,6 +234,65 @@ function getNextDialectId(currentId) {
   if (idx === -1) return DIALECT_ORDER[0];
   const nextIdx = (idx + 1) % DIALECT_ORDER.length;
   return DIALECT_ORDER[nextIdx];
+}
+
+// ✅ 블럭 안에서 특정 지역 이미지 얻기
+function getDialectImg(block, id) {
+  return block.querySelector(`.img-${id}`);
+}
+
+// ✅ 블럭 안 img-xx 전부 숨기고 active만 보여주기(즉시/초기용)
+function setBlockDialectImages(block, activeId, opts = {}) {
+  const { animate = false } = opts;
+
+  const imgs = Array.from(block.querySelectorAll('img[class*="img-"]'));
+  if (!imgs.length) return;
+
+  imgs.forEach((img) => {
+    img.style.transition = animate ? "transform 0.4s ease" : "none";
+    img.style.transform = "translateY(100%)";
+  });
+
+  const active = getDialectImg(block, activeId);
+  if (active) {
+    active.style.transition = animate ? "transform 0.4s ease" : "none";
+    active.style.transform = "translateY(0)";
+  }
+}
+
+// ✅ from → to 슬라이드 (공통)
+function slideBlockDialectImages(block, fromId, toId) {
+  const fromImg = getDialectImg(block, fromId);
+  const toImg = getDialectImg(block, toId);
+  if (!fromImg || !toImg) return;
+
+  // 나머지 지역 이미지는 아래로 숨김(깜빡임 방지)
+  const others = Array.from(block.querySelectorAll('img[class*="img-"]'))
+    .filter((img) => img !== fromImg && img !== toImg);
+
+  others.forEach((img) => {
+    img.style.transition = "none";
+    img.style.transform = "translateY(100%)";
+  });
+
+  fromImg.style.transition = "transform 0.4s ease";
+  toImg.style.transition = "transform 0.4s ease";
+
+  // 들어올 애는 아래에서 시작
+  toImg.style.transform = "translateY(100%)";
+
+  requestAnimationFrame(() => {
+    fromImg.style.transform = "translateY(-100%)";
+    toImg.style.transform = "translateY(0)";
+  });
+
+  // 끝난 뒤 fromImg도 아래로 정리해서 다음 전환에 일관성 유지
+  setTimeout(() => {
+    if (getDialectImg(block, toId) === toImg) {
+      fromImg.style.transition = "none";
+      fromImg.style.transform = "translateY(100%)";
+    }
+  }, 420);
 }
 
 // 즉시 적용 (초기 세팅용, 애니메이션 없음)
@@ -201,35 +313,20 @@ function applyDialectInstant(id, els) {
     img.style.transform = `translateY(${ty}px)`;
   });
 
-  // 둘째 줄 프레임 위치 + 프레임 안 이미지 배치
+  // 둘째 줄 프레임 위치 + 프레임 안 이미지 배치(5개 지역 공통)
   secondBlocks.forEach((block, i) => {
     const ty = d.secondTransforms[i] ?? 0;
     block.style.transition = "none";
     block.style.transform = `translateY(${ty}px)`;
 
-    const ksImg = block.querySelector(".img-ks");
-    const jrImg = block.querySelector(".img-jr");
-
-    if (ksImg && jrImg) {
-      if (id === "ks") {
-        ksImg.style.transition = "none";
-        jrImg.style.transition = "none";
-        ksImg.style.transform = "translateY(0)";
-        jrImg.style.transform = "translateY(100%)";
-      } else {
-        ksImg.style.transition = "none";
-        jrImg.style.transition = "none";
-        ksImg.style.transform = "translateY(-100%)";
-        jrImg.style.transform = "translateY(0)";
-      }
-    }
+    setBlockDialectImages(block, id, { animate: false });
   });
 
   currentDialect = id;
   visibleDialect = id;
 }
 
-// 경상도 ↔ 전라도 자동 전환 (애니메이션)
+// 자동 전환 (애니메이션)
 function switchDialect(targetId, els) {
   const fromId = currentDialect;
   if (fromId === targetId) return;
@@ -238,18 +335,16 @@ function switchDialect(targetId, els) {
   const { titleImg, firstLineImgs, secondBlocks } = els;
 
   isAnimating = true;
-  currentDialect = targetId;   // 논리 상태는 바로 바꾸고
+  currentDialect = targetId;
 
-  // 1) 타이틀 이미지 교체 + 슉슉 애니메이션
+  // 1) 타이틀 이미지 교체
   if (titleImg) {
-    // 위로 사라졌다가 아래에서 올라오는 느낌
     titleImg.style.transition = "transform 0.25s ease, opacity 0.25s ease";
     titleImg.style.opacity = 0;
     titleImg.style.transform = "translateY(-10px)";
 
     setTimeout(() => {
       titleImg.src = to.titleSrc;
-      // 아래에서 시작
       titleImg.style.transition = "none";
       titleImg.style.transform = "translateY(10px)";
       titleImg.style.opacity = 0;
@@ -269,34 +364,18 @@ function switchDialect(targetId, els) {
     img.style.transform = `translateY(${ty}px)`;
   });
 
-  // 3) 둘째 줄 프레임 + 프레임 안 이미지 슬라이드
+  // 3) 둘째 줄 프레임 + 프레임 안 이미지 슬라이드(5개 지역 공통)
   secondBlocks.forEach((block, i) => {
     const ty = to.secondTransforms[i] ?? 0;
     block.style.transition = "transform 0.4s ease";
     block.style.transform = `translateY(${ty}px)`;
 
-    const ksImg = block.querySelector(".img-ks");
-    const jrImg = block.querySelector(".img-jr");
-    if (!ksImg || !jrImg) return;
-
-    if (targetId === "jr") {
-      // ks → jr
-      ksImg.style.transition = "transform 0.4s ease";
-      jrImg.style.transition = "transform 0.4s ease";
-      ksImg.style.transform = "translateY(-100%)";
-      jrImg.style.transform = "translateY(0)";
-    } else {
-      // jr → ks
-      ksImg.style.transition = "transform 0.4s ease";
-      jrImg.style.transition = "transform 0.4s ease";
-      ksImg.style.transform = "translateY(0)";
-      jrImg.style.transform = "translateY(100%)";
-    }
+    slideBlockDialectImages(block, fromId, targetId);
   });
 
   setTimeout(() => {
     isAnimating = false;
-    visibleDialect = targetId;   // 애니 끝난 시점에 화면 상태 확정
+    visibleDialect = targetId;
   }, 450);
 }
 
@@ -309,40 +388,41 @@ function showArrowsFor(id, els) {
 
   keyLineImgs.forEach((img, i) => {
     const src = d.triangleSrcs[i];
-    const ty  = d.triangleTransforms ? d.triangleTransforms[i] : 0;
+    const ty = d.triangleTransforms ? d.triangleTransforms[i] : 0;
 
     if (src) img.src = src;
-    img.style.opacity = 1; // 다시 보이게
+    img.style.opacity = 1;
     img.style.transform = `translateY(${ty}px)`;
   });
 
-  if (canvas) {
-    canvas.classList.add("show-arrows");
-  }
+  if (canvas) canvas.classList.add("show-arrows");
 }
 
 // ================================
 // 5. 방향키 입력 처리
 // ================================
 
-// 방향키 입력 처리 → 패턴 맞으면 다음 페이지
 function handleArrowInput(key) {
   const d = DIALECTS[selectedDialect];
   if (!d || !d.trianglePattern) return;
 
-  const dir = key === "ArrowUp" ? "up" : "down";
-  const pattern = d.trianglePattern;
+  const dir =
+    key === "ArrowUp" ? "up" :
+    key === "ArrowDown" ? "down" :
+    key === "ArrowRight" ? "right" :
+    null;
 
-  // 현재 풀어야 할 인덱스
+  if (!dir) return;
+
+  const pattern = d.trianglePattern;
   const idx = currentIndex;
 
   // 🔊 오디오 재생
-if (d.audio && d.audio[idx]) {
-  const audio = new Audio(d.audio[idx]);
-  audio.currentTime = 0;  // 처음부터 재생
-  audio.play();
-}
-
+  if (d.audio && d.audio[idx]) {
+    const audio = new Audio(d.audio[idx]);
+    audio.currentTime = 0;
+    audio.play();
+  }
 
   if (idx >= pattern.length) return;
 
@@ -352,34 +432,29 @@ if (d.audio && d.audio[idx]) {
   const baseTyBlock = d.secondTransforms ? (d.secondTransforms[idx] ?? 0) : 0;
   const baseTyArrow = d.triangleTransforms ? (d.triangleTransforms[idx] ?? 0) : 0;
 
-  // ---- 오답 처리: 가로 흔들기, 다음 블럭으로 안 넘어감 ----
+  // 오답
   if (pattern[idx] !== dir) {
-    if (block) {
-      shakeBlockHorizontal(block, baseTyBlock);
-    }
-    // 화살표는 안 사라지고 제자리에서 살짝 움찔만 (원래 함수 재사용)
-    if (arrow) {
-      flashArrow(arrow, baseTyArrow);
-    }
-    // currentIndex 그대로 유지 → 같은 블럭 다시 시도
+    if (block) shakeBlockHorizontal(block, baseTyBlock);
+    if (arrow) flashArrow(arrow, baseTyArrow);
     return;
   }
 
-  // ---- 정답 처리 ----
-  // 블럭 애니메이션
-  if (block && d.secondTransforms) {
-    if (dir === "up") {
-      // 위 방향키 → 60px 위로 올라가서 그 위치 유지 + 반짝
-      flashBlockUp(block, baseTyBlock);
-      d.secondTransforms[idx] = baseTyBlock - 60;
-    } else {
-      // 아래 방향키 → 제자리에서 살짝 움찔 + 반짝
-      flashBlockDown(block, baseTyBlock);
-      // 내려가는 건 위치 유지 (원래 base 그대로)
-    }
+  
+  // 정답
+if (block && d.secondTransforms) {
+  if (dir === "up") {
+    flashBlockUp(block, baseTyBlock);
+    d.secondTransforms[idx] = baseTyBlock - 60;
+  } else if (dir === "down") {
+    flashBlockDown(block, baseTyBlock);
+    d.secondTransforms[idx] = baseTyBlock + 60;
+  } else {
+    // right 는 그대로 제자리 움찔 유지
+    flashBlockRight(block, baseTyBlock);
   }
+}
 
-  // 화살표 움찔 + 정답이면 사라지기
+
   if (arrow) {
     flashArrow(arrow, baseTyArrow);
     setTimeout(() => {
@@ -387,34 +462,28 @@ if (d.audio && d.audio[idx]) {
     }, 100);
   }
 
-  // 다음 블럭으로 인덱스 이동
   currentIndex++;
 
-  // 모든 패턴을 다 맞추면 → 잠깐 쉬고 전체 음 재생, 또 쉬고 다음 페이지
   if (currentIndex === pattern.length) {
-    arrowGameActive = false;  // 더 이상 입력 못 하게 잠금
+    arrowGameActive = false;
 
-    const BEFORE_REPLAY_DELAY = 400;  // 마지막 키 입력 후 딜레이(ms) - 취향껏 조절 가능
-    const AFTER_REPLAY_DELAY  = 1000; // 전체 시퀀스가 끝난 뒤 1초 대기
+    const BEFORE_REPLAY_DELAY = 400;
+    const AFTER_REPLAY_DELAY = 1000;
 
     setTimeout(() => {
       playSuccessSequence(selectedDialect, () => {
         setTimeout(() => {
-          window.location.href = "1p.html";
+          window.location.href = "index2.html";
         }, AFTER_REPLAY_DELAY);
       });
     }, BEFORE_REPLAY_DELAY);
   }
 }
 
-
-
-
 // ================================
 // 6. 블럭 / 화살표 애니메이션들
 // ================================
 
-// 블럭 위로 올라가서 그 자리 유지 + 반짝
 function flashBlockUp(block, fromY) {
   block.style.transition = "transform 0.18s ease, filter 0.18s ease";
   block.style.filter = "brightness(1.4)";
@@ -422,12 +491,20 @@ function flashBlockUp(block, fromY) {
 
   setTimeout(() => {
     block.style.filter = "brightness(1)";
-    // 위치는 유지 (fromY - 60 상태 유지)
   }, 200);
 }
 
-// 블럭 제자리에서 움찔 + 반짝 (원위치 복귀)
-function flashBlockDown(block, baseY) {
+function flashBlockDown(block, fromY) {
+  block.style.transition = "transform 0.18s ease, filter 0.18s ease";
+  block.style.filter = "brightness(1.4)";
+  block.style.transform = `translateY(${fromY + 60}px)`;
+
+  setTimeout(() => {
+    block.style.filter = "brightness(1)";
+  }, 200);
+}
+
+function flashBlockRight(block, baseY) {
   const upY = baseY - 10;
 
   block.style.transition = "transform 0.12s ease, filter 0.12s ease";
@@ -440,6 +517,7 @@ function flashBlockDown(block, baseY) {
   }, 120);
 }
 
+
 // ================================
 // 7. 전체 시퀀스 재생 + 블럭 애니메이션
 // ================================
@@ -451,18 +529,16 @@ function playSuccessSequence(dialectId, onComplete) {
   }
 
   const length = d.trianglePattern.length;
-  const interval = 220; // 음 사이 간격(ms) — 따다다닥 느낌
+  const interval = 220;
 
   let i = 0;
 
   function step() {
     if (i >= length) {
-      // 다 돌았으면 콜백 호출
       if (typeof onComplete === "function") onComplete();
       return;
     }
 
-    // 1) 오디오 재생
     const src = d.audio[i];
     if (src) {
       const audio = new Audio(src);
@@ -470,14 +546,13 @@ function playSuccessSequence(dialectId, onComplete) {
       audio.play();
     }
 
-    // 2) 해당 블럭에 애니메이션 주기
     const block = secondBlocksRef[i];
     if (block && d.secondTransforms) {
       const baseY = d.secondTransforms[i] ?? 0;
 
       block.style.transition = "transform 0.18s ease, filter 0.18s ease";
       block.style.filter = "brightness(1.4)";
-      block.style.transform = `translateY(${baseY - 15}px)`; // 살짝 위로 튕기기
+      block.style.transform = `translateY(${baseY - 15}px)`;
 
       setTimeout(() => {
         block.style.transform = `translateY(${baseY}px)`;
@@ -492,14 +567,13 @@ function playSuccessSequence(dialectId, onComplete) {
   step();
 }
 
-
-// ▶ 오답일 때 가로로 흔들리는 애니메이션
+// 오답: 가로 흔들기
 function shakeBlockHorizontal(block, baseY) {
   if (!block) return;
 
-  const shakeDistance = 10;   // 좌우 흔들리는 폭(px)
-  const duration = 250;       // 전체 흔들리는 시간(ms)
-  const steps = [-1, 1, -1, 1, -0.5, 0]; // 진동 패턴
+  const shakeDistance = 10;
+  const duration = 250;
+  const steps = [-1, 1, -1, 1, -0.5, 0];
 
   let i = 0;
   block.style.transition = "transform 0.04s ease";
@@ -511,13 +585,12 @@ function shakeBlockHorizontal(block, baseY) {
 
     if (i >= steps.length) {
       clearInterval(timer);
-      // 원래 위치로 복귀
       block.style.transform = `translateY(${baseY}px)`;
     }
   }, duration / steps.length);
 }
 
-// 화살표 움찔 애니메이션
+// 화살표 움찔
 function flashArrow(arrow, baseY) {
   arrow.style.transition = "transform 0.10s ease";
   arrow.style.transform = `translateY(${baseY - 8}px) scale(1.1)`;

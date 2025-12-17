@@ -1,311 +1,348 @@
-// src/interactive.js
+console.log("interactive.js loaded");
 
-// -------------------------------------
-// 1. 카드 높낮이 정보 (px 단위)
-// -------------------------------------
-const Y_OFFSETS = {
-  ks: {
-    1: -30,
-    3: -30,
-    4: -30,
+/* =========================
+   AUDIO CONFIG
+   ========================= */
+const AUDIO_BASE = "./mainpage/audio/";
 
-    7: -30,
-    8: 30,
-    9: 30,
-    10: 30,
+// 🔥 여기만 줄이면 빨라짐 (ms)
+const SOUND_GAP = 200;
 
-    12: 30,
-    13: 60
-  },
-  jr: {
-    1: -30,
-    2: -60,
-    5: -30,
+// ✅ key: "이미지 src(상대경로 그대로)"
+// ✅ value: "재생할 m4a 파일명 배열" (AUDIO_BASE 기준)
+const AUDIO_MAP = {
+  /* =========================
+     BASIC (서울말)
+     ========================= */
+  "./interactive/decision_to_leave/basic/1.svg":  ["e.m4a"],
+  "./interactive/decision_to_leave/basic/2.svg":  ["e.m4a"],
+  "./interactive/decision_to_leave/basic/3.svg": ["e.m4a","e.m4a", "e.m4a"],
+  "./interactive/decision_to_leave/basic/4.svg": ["e.m4a","e.m4a","e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/5.svg":  ["e.m4a","e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/6.svg": ["e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/7.svg":  ["e.m4a"],
+  "./interactive/decision_to_leave/basic/8.svg":  ["e.m4a","e.m4a","e.m4a","e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/9.svg":  ["e.m4a","e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/10.svg": ["e.m4a","e.m4a","e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/11.svg": ["e.m4a","e.m4a","e.m4a"],
+  "./interactive/decision_to_leave/basic/12.svg": ["e.m4a"],
+  "./interactive/decision_to_leave/basic/13.svg": ["e.m4a","e.m4a","e.m4a","e.m4a","e.m4a"],
 
-    6: -30,
-    7: 30,
-    8: 30,
-    10: 30,
+  /* =========================
+     KS (경상도)
+     ========================= */
+  "./interactive/decision_to_leave/ks/1.svg":  ["e.m4a"],
+  "./interactive/decision_to_leave/ks/2.svg":  ["d.m4a"],
+  "./interactive/decision_to_leave/ks/3.svg":  ["e.m4a","f.m4a"],
+  "./interactive/decision_to_leave/ks/4.svg":  ["e.m4a","e.m4a","f.m4a","e.m4a"],
+  "./interactive/decision_to_leave/ks/5.svg":  ["f.m4a","e.m4a","c.m4a"],
+  "./interactive/decision_to_leave/ks/6.svg":  ["f.m4a","e.m4a"],
+  "./interactive/decision_to_leave/ks/7.svg":  ["f.m4a"],
+  "./interactive/decision_to_leave/ks/8.svg":  ["c.m4a","d.m4a","e.m4a","e.m4a","d.m4a"],
+  "./interactive/decision_to_leave/ks/9.svg":  ["c.m4a","d.m4a","e.m4a"],
+  "./interactive/decision_to_leave/ks/10.svg": ["d.m4a","e.m4a","f.m4a","e.m4a","d.m4a","c.m4a"],
+  "./interactive/decision_to_leave/ks/11.svg": ["e.m4a","f.m4a"],
+  "./interactive/decision_to_leave/ks/12.svg": ["d.m4a"],
+  "./interactive/decision_to_leave/ks/13.svg": ["c.m4a","d.m4a","d.m4a","d.m4a","c.m4a"],
 
-    11: 30
-  }
-  // basic은 전부 0이라고 보면 됨
+ /* =========================
+   JR (전라도)
+   ========================= */
+"./interactive/decision_to_leave/jr/1.svg":  ["e.m4a"],
+"./interactive/decision_to_leave/jr/2.svg":  ["f.m4a"],
+"./interactive/decision_to_leave/jr/3.svg":  ["e.m4a","d.m4a"],
+"./interactive/decision_to_leave/jr/4.svg":  ["e.m4a","e.m4a","f.m4a","d.m4a"],
+"./interactive/decision_to_leave/jr/5.svg":  ["e.m4a","e.m4a"],
+
+"./interactive/decision_to_leave/jr/6.svg":  ["f.m4a","f.m4a"],
+"./interactive/decision_to_leave/jr/7.svg":  ["d.m4a"],
+"./interactive/decision_to_leave/jr/8.svg":  ["e.m4a","e.m4a","e.m4a","d.m4a"],
+"./interactive/decision_to_leave/jr/9.svg":  ["e.m4a","e.m4a","f.m4a","e.m4a","f.m4a"],
+"./interactive/decision_to_leave/jr/10.svg": ["e.m4a","e.m4a","f.m4a","e.m4a","d.m4a"],
+
+"./interactive/decision_to_leave/jr/11.svg": ["e.m4a","d.m4a"],
+"./interactive/decision_to_leave/jr/12.svg": ["e.m4a"],
+"./interactive/decision_to_leave/jr/13.svg": ["f.m4a","e.m4a","f.m4a","g.m4a","g.m4a"],
+
+
+  /* =========================
+   CC (충청도)
+   ========================= */
+"./interactive/decision_to_leave/cc/1.svg":  ["e.m4a","e.m4a"],
+"./interactive/decision_to_leave/cc/2.svg":  ["f.m4a"],
+"./interactive/decision_to_leave/cc/3.svg":  ["e.m4a","f.m4a"],
+"./interactive/decision_to_leave/cc/4.svg":  ["f.m4a","e.m4a","e.m4a","d.m4a"],
+"./interactive/decision_to_leave/cc/5.svg":  ["e.m4a","d.m4a","c.m4a"],
+
+"./interactive/decision_to_leave/cc/6.svg":  ["e.m4a","e.m4a","e.m4a"],
+"./interactive/decision_to_leave/cc/7.svg":  ["d.m4a"],
+"./interactive/decision_to_leave/cc/8.svg":  ["d.m4a","c.m4a","c.m4a"],
+"./interactive/decision_to_leave/cc/9.svg":  ["e.m4a","e.m4a","e.m4a"],
+"./interactive/decision_to_leave/cc/10.svg": ["f.m4a","f.m4a","e.m4a","f.m4a","f.m4a","f.m4a","e.m4a"],
+
+"./interactive/decision_to_leave/cc/11.svg": ["f.m4a","e.m4a"],
+"./interactive/decision_to_leave/cc/12.svg": ["e.m4a"],
+"./interactive/decision_to_leave/cc/13.svg": ["e.m4a","d.m4a","c.m4a","c.m4a"],
+
+
+/* =========================
+   KW (강원도)
+   ========================= */
+"./interactive/decision_to_leave/kw/1.svg":  ["f.m4a"],
+"./interactive/decision_to_leave/kw/2.svg":  ["e.m4a"],
+"./interactive/decision_to_leave/kw/3.svg":  ["e.m4a","d.m4a"],
+"./interactive/decision_to_leave/kw/4.svg":  ["e.m4a","f.m4a","e.m4a","d.m4a"],
+"./interactive/decision_to_leave/kw/5.svg":  ["d.m4a","c.m4a","d.m4a"],
+
+"./interactive/decision_to_leave/kw/6.svg":  ["e.m4a","e.m4a","e.m4a"],
+"./interactive/decision_to_leave/kw/7.svg":  ["d.m4a"],
+"./interactive/decision_to_leave/kw/8.svg":  ["e.m4a","d.m4a","e.m4a","d.m4a","d.m4a"],
+"./interactive/decision_to_leave/kw/9.svg":  ["d.m4a","e.m4a","d.m4a"],
+"./interactive/decision_to_leave/kw/10.svg": ["e.m4a","d.m4a","e.m4a","d.m4a","e.m4a","d.m4a","f.m4a"],
+
+"./interactive/decision_to_leave/kw/11.svg": ["f.m4a","e.m4a","f.m4a"],
+"./interactive/decision_to_leave/kw/12.svg": ["e.m4a"],
+"./interactive/decision_to_leave/kw/13.svg": ["d.m4a","e.m4a","d.m4a","e.m4a","d.m4a"],
+
+
+/* =========================
+   JJ (제주도)
+   ========================= */
+"./interactive/decision_to_leave/jj/1.svg":  ["f.m4a","e.m4a"],
+"./interactive/decision_to_leave/jj/2.svg":  ["e.m4a"],
+"./interactive/decision_to_leave/jj/3.svg":  ["e.m4a","d.m4a"],
+"./interactive/decision_to_leave/jj/4.svg":  ["f.m4a","e.m4a","e.m4a","e.m4a"],
+"./interactive/decision_to_leave/jj/5.svg":  ["f.m4a","e.m4a"],
+
+"./interactive/decision_to_leave/jj/6.svg":  ["d.m4a","d.m4a","d.m4a"],
+"./interactive/decision_to_leave/jj/7.svg":  ["e.m4a"],
+"./interactive/decision_to_leave/jj/8.svg":  ["e.m4a","e.m4a","e.m4a","e.m4a","d.m4a"],
+"./interactive/decision_to_leave/jj/9.svg":  ["e.m4a","f.m4a","e.m4a"],
+"./interactive/decision_to_leave/jj/10.svg": ["f.m4a","e.m4a","e.m4a","e.m4a","e.m4a","e.m4a"],
+
+"./interactive/decision_to_leave/jj/11.svg": ["f.m4a"],
+"./interactive/decision_to_leave/jj/12.svg": ["f.m4a","e.m4a"],
+"./interactive/decision_to_leave/jj/13.svg": ["e.m4a","e.m4a","e.m4a","d.m4a","c.m4a"]
 };
 
-// 슬롯별 텍스트
-const TEXT_MAP = {
-  basic: {
-    1: "나",
-    2: "너",
-    3: "때문에",
-    4: "고생깨나",
-    5: "했지만",
-    6: "사실",
-    7: "너",
-    8: "아니었으면",
-    9: "내 인생",
-    10: "공허했다",
-    11: "이렇게",
-    12: "좀",
-    13: "전해주세요"
-  },
-  ks: {
-    1: "내",
-    2: "니",
-    3: "땜에",
-    4: "고생깨나",
-    5: "했지만",
-    6: "사실",
-    7: "니",
-    8: "아니었으믄",
-    9: "내 인생",
-    10: "공허했을끼다",
-    11: "이래",
-    12: "쫌",
-    13: "전해주이소"
-  },
-  jr: {
-    1: "나",
-    2: "너",
-    3: "땜시",
-    4: "고생깨나",
-    5: "했제",
-    6: "사실은",
-    7: "니",
-    8: "아니었음",
-    9: "내 인생",
-    10: "공허했어야",
-    11: "일케",
-    12: "좀",
-    13: "전해주쇼잉"
+
+/* =========================
+   AUDIO ENGINE
+   ========================= */
+const audioProtoCache = new Map();
+
+// 같은 파일 여러 번 연타해도 겹쳐서 나게 cloneNode 사용
+function getAudioInstance(url){
+  let proto = audioProtoCache.get(url);
+  if (!proto){
+    proto = new Audio(url);
+    proto.preload = "auto";
+    audioProtoCache.set(url, proto);
   }
-};
-
-const REGION_FOLDERS = ["basic", "ks", "jr"];
-const TOTAL_SLOTS = 13;
-
-// 현재 화면에 깔린 카드들 (slot 1~13)
-const cards = [];
-
-// -------------------------------------
-// 2. 유틸 함수들
-// -------------------------------------
-function getRandomRegion() {
-  const idx = Math.floor(Math.random() * REGION_FOLDERS.length);
-  return REGION_FOLDERS[idx];
+  const a = proto.cloneNode(true);
+  a.preload = "auto";
+  return a;
 }
 
-function getLineIndex(slot) {
-  if (slot <= 5) return 1;
-  if (slot <= 10) return 2;
+function sleep(ms){
+  return new Promise((r) => setTimeout(r, ms));
+}
+
+// 사운드 날 때마다 카드 바운스
+function triggerSoundAnim(wrap){
+  wrap.classList.remove("sound-active");
+  void wrap.offsetWidth;
+  wrap.classList.add("sound-active");
+}
+
+// 카드 1개에 매핑된 음절 배열 재생
+async function playCard(wrap, tokenKey, myToken){
+  const img = wrap.querySelector("img.word.current");
+  if (!img) return;
+
+  const src = img.getAttribute("src"); // ✅ 상대경로 유지
+  const list = AUDIO_MAP[src] || [];
+  if (list.length === 0) return;
+
+  for (const file of list){
+    if (playToken[tokenKey] !== myToken) return;
+
+    triggerSoundAnim(wrap);
+
+    const url = AUDIO_BASE + file;
+    const a = getAudioInstance(url);
+
+    try { await a.play(); } catch (e) {}
+
+    // 🔥 여기 간격이 “속도” 체감임
+    await sleep(SOUND_GAP);
+  }
+}
+
+// 줄 단위 재생 취소 토큰
+const playToken = { line1: 0, line2: 0, line3: 0 };
+
+function getLineWraps(lineIndex){
+  const selector =
+    lineIndex === 1 ? ".first_line .word-slot" :
+    lineIndex === 2 ? ".second_line .word-slot" :
+    ".third_line .word-slot";
+  return Array.from(document.querySelectorAll(selector));
+}
+
+async function playLine(lineIndex){
+  const tokenKey = lineIndex === 1 ? "line1" : lineIndex === 2 ? "line2" : "line3";
+  playToken[tokenKey] += 1;
+  const myToken = playToken[tokenKey];
+
+  const lineWraps = getLineWraps(lineIndex);
+
+  // 카드 순서대로 재생
+  for (const wrap of lineWraps){
+    if (playToken[tokenKey] !== myToken) return;
+    await playCard(wrap, tokenKey, myToken);
+  }
+}
+
+/* =========================
+   CARD / ANIMATION (기존)
+   ========================= */
+const TOTAL_SLOTS = 13;
+// ✅ basic 포함
+const REGIONS = ["basic", "ks", "jr", "cc", "kw", "jj"];
+
+const BOUNCE_DUR = 420;
+const SWAP_AT = 0.35;
+
+let wraps = [];
+
+function getRandomRegion(){
+  return REGIONS[Math.floor(Math.random() * REGIONS.length)];
+}
+function getLineIndex(slot){
+  if (slot <= 4) return 1;
+  if (slot <= 9) return 2;
   return 3;
 }
-
-// 카드 하나의 Y 오프셋 계산
-function computeOffsetY(region, slot) {
-  const regionOffsets = Y_OFFSETS[region] || {};
-  let offsetY = regionOffsets[slot] || 0;
-
-  const lineIndex = getLineIndex(slot);
-
-  // 줄별로 너무 튀지 않게 약간만 가드
-  if (lineIndex === 1) {
-    if (offsetY > 0) offsetY = 0;
-    const MIN = -80;
-    if (offsetY < MIN) offsetY = MIN;
-  } else if (lineIndex === 2) {
-    if (offsetY < 0) offsetY = 0;
-    const MAX = 80;
-    if (offsetY > MAX) offsetY = MAX;
-  } else {
-    if (offsetY < 0) offsetY = 0;
-    const MAX = 100;
-    if (offsetY > MAX) offsetY = MAX;
-  }
-
-  return offsetY;
+function getWordSrc(region, slot){
+  return `./interactive/decision_to_leave/${region}/${slot}.svg`;
 }
 
+function bounceAndSwap(wrap, newRegion, delayMs = 0){
+  const slot = Number(wrap.dataset.slot);
+  const img = wrap.querySelector("img.word.current");
+  if (!img) return;
 
+  wrap.classList.remove("bounce");
+  void wrap.offsetWidth;
 
-// 음성 재생
-// 현재 화면 문장을 텍스트로 만들기
-function getCurrentSentenceText() {
-  const ordered = [...cards].sort(
-    (a, b) => Number(a.dataset.slot) - Number(b.dataset.slot)
-  );
+  setTimeout(() => {
+    wrap.classList.add("bounce");
 
-  const parts = ordered.map((img) => {
-    const region = img.dataset.region;
-    const slot = Number(img.dataset.slot);
-    return TEXT_MAP[region]?.[slot] || "";
-  });
+    setTimeout(() => {
+      img.dataset.region = newRegion;
+      img.src = getWordSrc(newRegion, slot);
+      wrap.dataset.region = newRegion;
+    }, Math.floor(BOUNCE_DUR * SWAP_AT));
 
-  return parts.join(" ").trim();
+    setTimeout(() => {
+      wrap.classList.remove("bounce");
+    }, BOUNCE_DUR + 10);
+  }, delayMs);
 }
 
-// 🔥 여기만 구글 TTS 서버 호출 방식으로 변경
-async function speakCurrentSentence() {
-  const text = getCurrentSentenceText();
-  if (!text) return;
-
-  try {
-    const res = await fetch("http://localhost:3001/api/tts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
-
-    if (!res.ok) {
-      console.error("TTS 서버 에러", await res.text());
-      return;
-    }
-
-    const data = await res.json();
-    const audioUrl = data.url;
-    if (!audioUrl) {
-      console.error("TTS 응답에 url 없음");
-      return;
-    }
-
-    const audio = new Audio(audioUrl);
-    audio.play();
-  } catch (err) {
-    console.error("TTS 요청 중 오류", err);
-  }
-}
-
-
-// -------------------------------------
-// 3. “슬롯 안에서 아래→위 슉” 애니메이션
-// -------------------------------------
-function animateCardToRegion(img, newRegion) {
-  const slot = Number(img.dataset.slot);
-  const targetOffsetY = computeOffsetY(newRegion, slot);
-
-  // 새 이미지 먼저 끼우고, "슬롯 아래"에서 시작
-  img.src = `./interactive/decision_to_leave/${newRegion}/${slot}.svg`;
-  img.dataset.region = newRegion;
-
-  img.style.transition = "none";
-  img.style.opacity = "0";
-  img.style.transform = `translateY(${targetOffsetY + 18}px)`; // +18px 아래
-
-  requestAnimationFrame(() => {
-    img.style.transition = "transform 0.28s ease, opacity 0.28s ease";
-    img.style.transform = `translateY(${targetOffsetY}px)`; // 슬롯 안 제자리
-    img.style.opacity = "1";
-  });
-}
-
-// -------------------------------------
-// 4. 초기 카드 13장 만들기
-// -------------------------------------
-function initCards() {
+function initCards(){
   const firstLine = document.querySelector(".first_line");
   const secondLine = document.querySelector(".second_line");
   const thirdLine = document.querySelector(".third_line");
 
-  if (!firstLine || !secondLine || !thirdLine) {
-    console.warn("라인 요소를 찾을 수 없음");
+  if (!firstLine || !secondLine || !thirdLine){
+    console.warn("[init] line containers not found");
     return;
   }
 
   firstLine.innerHTML = "";
   secondLine.innerHTML = "";
   thirdLine.innerHTML = "";
+  wraps = [];
 
-  for (let slot = 1; slot <= TOTAL_SLOTS; slot++) {
+  for (let slot = 1; slot <= TOTAL_SLOTS; slot++){
     const region = getRandomRegion();
+
+    const wrap = document.createElement("span");
+    wrap.className = "word-slot";
+    wrap.dataset.slot = String(slot);
+    wrap.dataset.region = region;
+
     const img = document.createElement("img");
-
-    img.src = `./interactive/decision_to_leave/${region}/${slot}.svg`;
+    img.className = "word current";
     img.alt = `${region} ${slot}`;
-    img.classList.add("word");
-
-    img.dataset.slot = String(slot);
     img.dataset.region = region;
+    img.src = getWordSrc(region, slot);
 
-    const offsetY = computeOffsetY(region, slot);
-
-    img.style.opacity = "0";
-    img.style.transform = `translateY(${offsetY + 18}px)`;
-    img.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+    wrap.appendChild(img);
 
     const lineIndex = getLineIndex(slot);
-    if (lineIndex === 1) {
-      firstLine.appendChild(img);
-    } else if (lineIndex === 2) {
-      secondLine.appendChild(img);
-    } else {
-      thirdLine.appendChild(img);
-    }
+    if (lineIndex === 1) firstLine.appendChild(wrap);
+    else if (lineIndex === 2) secondLine.appendChild(wrap);
+    else thirdLine.appendChild(wrap);
 
-    cards.push(img);
-
-    requestAnimationFrame(() => {
-      img.style.transform = `translateY(${offsetY}px)`;
-      img.style.opacity = "1";
-    });
+    wraps.push(wrap);
   }
+
+  wraps.forEach((wrap, i) => {
+    const region = wrap.dataset.region;
+    bounceAndSwap(wrap, region, i * 18);
+  });
+
+  console.log("[init] wraps:", wraps.length);
 }
 
-// -------------------------------------
-// 5. 문장 바꾸는 함수들
-// -------------------------------------
-function createRandomSentence() {
-  cards.forEach((img) => {
+function createRandomSentence(){
+  wraps.forEach((wrap, i) => {
     const newRegion = getRandomRegion();
-    animateCardToRegion(img, newRegion);
+    bounceAndSwap(wrap, newRegion, i * 18);
   });
 }
 
-function renderRegionSequence(region) {
-  cards.forEach((img) => {
-    animateCardToRegion(img, region);
+function renderRegionSequence(region){
+  wraps.forEach((wrap, i) => {
+    bounceAndSwap(wrap, region, i * 18);
   });
 }
 
-// -------------------------------------
-// 6. 초기화
-// -------------------------------------
-// -------------------------------------
-// 6. 초기화
-// -------------------------------------
-function setup() {
-  initCards();
-
+function bindUI(){
   const tryMoreBtn = document.querySelector(".trymore");
-  if (tryMoreBtn) {
-    tryMoreBtn.addEventListener("click", () => {
-      createRandomSentence();
-    });
+  if (tryMoreBtn){
+    tryMoreBtn.addEventListener("click", createRandomSentence);
   }
 
-  // 🔊 LISTEN 버튼들 클릭 시 음성 재생
-  const listenTargets = [
-    document.querySelector(".listen"),
-    document.getElementById("listenBtn"),
-  ].filter(Boolean); // null 제거
+  const firstLine = document.querySelector(".first_line");
+  const secondLine = document.querySelector(".second_line");
+  const thirdLine = document.querySelector(".third_line");
 
-  listenTargets.forEach((el) => {
-    el.style.cursor = "pointer"; // 마우스 올리면 손가락 모양
-    el.addEventListener("click", () => {
-      speakCurrentSentence();
-    });
-  });
+  // ✅ 줄 클릭하면 그 줄만 순서대로 재생
+  if (firstLine) firstLine.addEventListener("click", () => playLine(1));
+  if (secondLine) secondLine.addEventListener("click", () => playLine(2));
+  if (thirdLine) thirdLine.addEventListener("click", () => playLine(3));
 
-  // 키보드 디버그
-  document.addEventListener("keydown", (e) => {
+  window.addEventListener("keydown", (e) => {
+    const active = document.activeElement;
+    const isTyping =
+      (active && active.isContentEditable) ||
+      (active && (active.tagName === "INPUT" || active.tagName === "TEXTAREA"));
+    if (isTyping) return;
+
     if (e.key === "1") renderRegionSequence("basic");
     if (e.key === "2") renderRegionSequence("ks");
     if (e.key === "3") renderRegionSequence("jr");
-    if (e.key === "0") createRandomSentence();
-    if (e.key === " ") speakCurrentSentence();
+    if (e.key === "4") renderRegionSequence("cc");
+    if (e.key === "5") renderRegionSequence("kw");
+    if (e.key === "6") renderRegionSequence("jj");
   });
 }
 
-// ✅ 이 줄이 꼭 필요!
-document.addEventListener("DOMContentLoaded", setup);
+window.addEventListener("load", () => {
+  initCards();
+  bindUI();
+});

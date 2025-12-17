@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>가제:사투리 프로젝트</title>
+  <link rel="stylesheet" href="./src/zine.css"> 
+  <script>
+    (function(d) {
+      var config = {
+        kitId: 'fbk2wub',
+        scriptTimeout: 3000,
+        async: true
+      },
+      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+  </script>
+</head>
+
+<body>
+  <div id="floating-explain">
+  <img id="explainImg" src="" alt="">
+</div>
+
+<div class="canvas">
+
+    <img src="./zine/jj/jj1.svg" class="jj" id="jj1">
+    <img src="./zine/jj/jj2.svg" class="jj" id="jj2">
+    <img src="./zine/jj/jj3.svg" class="jj" id="jj3">
+    <img src="./zine/jj/jj4.svg" class="jj" id="jj4">
+    
+
+  <img src="./1p/nextpage.svg" id="nextpage_down">
+
+  <img src="./zine/jj/background.svg" class="background">
+</div>
+
+<div class="blank" id="jj_blank">
+  <img src="./zine/jj/explan1.svg" class="explain1">
+  <img src="./zine/jj/explan2.svg" class="explain2">
+</div>
+
+
+
+<div class="canvas2" id="jj-canvas" data-region="jj">
+  <div id=nextpage> <img src="./1p/nextpage.svg"></div>
+
+  <div id="matter-container"></div>
+
+<img src="./zine/jj/title.svg" class="title">
+<div id="forever_text">다양한 제주도 사투리 중, 서울에서 살아도 쉽게 사라지지 않는 ‘핵심 사투리’를 선별해 소개한다.<br>
+  설문조사, 인터뷰, 영상 분석 등의 리서치 결과를 기반으로, 3가지 분류 체계 안에서 생존력이 높은 표현들을 추렸다.</div>
+  <img src="./zine/jj/explan3.svg" class="explain3">
+
+
+  <div class="inishi jj_inishi">
+    <div class="name jj_name" id="inishi_name">이니시</div>
+
+    <div id="inishi_text">
+      <div class="line jj_line" id="inishi1" data-explain="ini1">게메/게난</div>
+      <div class="line jj_line" id="inishi2" data-explain="ini2">야</div>
+
+    </div> 
+  </div> 
+
+
+  <div class="vocab jj_vocab">
+    <div class="name jj_name" id="vocab_name">특수어휘</div>
+
+    <div id="vocab_text">
+      <div class="line jj_line" id="vocab1" data-explain="voc1">무사</div>
+      <div class="line jj_line" id="vocab2" data-explain="voc2">기</div>
+      <div class="line jj_line" id="vocab3" data-explain="voc3">잘도</div>
+      <div class="line jj_line" id="vocab4" data-explain="voc4">삼춘</div>
+  </div>
+  </div>
+
+  <div class="ending jj_ending">
+    <div class="name jj_name" id="ending_name">어미</div>
+
+    <div id="ending_text">
+      <div class="line jj_line" id="ending1" data-explain="end1">-언</div>
+      <div class="line jj_line" id="ending2" data-explain="end2">-핸</div>
+      <div class="line jj_line" id="ending3" data-explain="end3">-져</div>
+      <div class="line jj_line" id="ending4" data-explain="end4">-신디</div>
+  </div>
+</div>
+
+
+<div class="hay jj_hay" id="hay">
+  <div class="hay-title">
+    당신이 생각하는 끝까지 살아남을<br>
+    제주도 사투리는 무엇인가요?
+  </div>
+
+  <div class="hay-input-wrapper">
+    <div
+      id="dialectInput"
+      class="hay-editable"
+      contenteditable="true"
+      data-placeholder="이 곳에 사투리를 적으면 배경에 저장돼요"
+    ></div>
+  </div>
+</div>
+
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
+<script type="module" src="./src/zine.js"></script>
+
+
+
+
+
+
+</body>
+</html>

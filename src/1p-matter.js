@@ -4,7 +4,7 @@
 /* --------- 방향키 이벤트 --------- */
 document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") window.location.href = "2p.html";
-  if (e.key === "ArrowLeft") window.location.href = "main.html";
+  if (e.key === "ArrowLeft") window.location.href = "index.html";
 });
 
 /* --------- Matter.js 세팅 --------- */
