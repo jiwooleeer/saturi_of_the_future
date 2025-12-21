@@ -90,8 +90,10 @@ function initMatter() {
   render.canvas.style.position = "absolute";
   render.canvas.style.left = "0";
   render.canvas.style.top = "0";
-  render.canvas.style.zIndex = "2";
-  render.canvas.style.pointerEvents = "auto";
+  render.canvas.style.zIndex = "1";
+render.canvas.style.pointerEvents = "auto";
+render.canvas.style.background = "transparent";
+
 
   Render.run(render);
 

@@ -332,14 +332,7 @@ pointer-events: none;    /* 클릭 안 되게 (필요 없으면 지워도 됨) *
 .kw_name{  background-color: #F6C500;}
 .jj_name{  background-color: #FF961E;}
 
-.line{
-  font-family: "rixsingose-pro", sans-serif;
-  font-weight: 300;
-  font-size: 37px;
-  text-align: center;
-  cursor: default;      /* I자 커서 말고 일반 화살표로 */
-  user-select: none;    /* 드래그도 안 되게 (선택 막기, 선택 가능하게 두고 싶으면 이 줄은 빼) */
-}
+
 
 .ks_line{  color: #FF0561;}
 .jr_line{  color: #00B7AB;}
@@ -676,6 +669,18 @@ z-index: 1;
 
   pointer-events: auto;  /* ✅ 드래그는 캔버스가 받기 */
 }
+.line{
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: 37px;
+  text-align: center;
+  cursor: default;      /* I자 커서 말고 일반 화살표로 */
+  user-select: none;  
+
+  position: relative;
+  z-index: 11;
+  pointer-events: auto;
+}
 /* 떨어지는 글자 스타일 */
 .falling-text {
   position: absolute;        /* ⭐ 좌표를 transform 기준으로 정확히 쓰게 */
@@ -711,3 +716,7 @@ z-index: 1;
   z-index: 10;
   pointer-events: auto;
 }
+
+
+
+
