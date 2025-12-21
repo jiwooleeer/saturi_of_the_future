@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>미래의 사투리</title>
+  <link rel="stylesheet" href="./src/interactive.css"> 
+  <script>
+    (function(d) {
+      var config = {
+        kitId: 'fbk2wub',
+        scriptTimeout: 3000,
+        async: true
+      },
+      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+  </script>
+</head>
+
+<body>
+    <a href="interactive.html"><img src=./interactive/decision_to_leave/back.svg class="back"></a>
+<div class="explain">〈어린왕자〉</div>
+<div class="explain2">*REGENERATE를 눌러 서울말을 미래의 사투리로 계속 재조합해보세요.<br>
+*사투리를 클릭하면 한줄씩 음계를 들려줘요.</div>
+<div id=game_container2>
+<div class="lines_scale">
+<div class="first_line"></div>
+<div class="second_line"></div>
+<div class="third_line"></div>
+<div class="fourth_line"></div>
+
+</div>
+</div>
+
+<div class="trymore"><img src="./interactive/try_more.svg"></div>
+
+  <script type="module" src="./src/little_prince.js"></script>
+</body>
+</html>

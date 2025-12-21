@@ -70,10 +70,10 @@ left:60px;
 
 .before{
     position: absolute;
-    height: 300px;
+    scale: 0.85;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -60%);
+    transform: translate(-60%, -65%);
 }
 
 .back{
@@ -110,27 +110,43 @@ left:60px;
 
 
 
-#game_container {
+:root{
+  --blocks-scale: 0.88; /* 여기만 조절 */
+}
+
+/* 기존 #game_container는 위치만 담당 */
+#game_container{
   position: absolute;
-  top: 48%;
+  top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
-
-  width: 1600px;       /* 필요에 따라 조절 */
-  /* height는 자동으로 하도록 두자 */
-  display: flex;
-  flex-direction: column;
-  gap: 0px;          /* 줄 사이 간격 */
+  width: min(1600px, calc(100vw - 160px));
 }
 
-/* 세 줄 공통 스타일 */
-.first_line,
-.second_line,
-.third_line {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;   /* 베이스라인 느낌 */
+#game_container2{
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-56%, -50%);
+  width: min(1600px, calc(100vw - 160px));
 }
+
+/* 실제 콘텐츠를 줄이는 래퍼 */
+.lines_scale{
+  transform: scale(var(--blocks-scale));
+  transform-origin: center center;
+
+  /* 레이아웃 폭도 같이 줄이기 */
+  width: calc(100% / var(--blocks-scale));
+}
+
+/* 줄 공통 */
+.first_line,.second_line,.third_line,.fourth_line{
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+
 
 .word {
   display: block;
@@ -149,15 +165,27 @@ left:60px;
 .word-slot{
   position: relative;
   display: inline-block;
-  overflow: hidden;
+  overflow: visible;
 
   margin-left: -1px;
   margin-top: -1px;
+  
+}
+
+
+.first_line,
+.second_line,
+.third_line,
+.fourth_line {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .first_line .word-slot:first-child,
 .second_line .word-slot:first-child,
-.third_line .word-slot:first-child{
+.third_line .word-slot:first-child,
+.fourth_line .word-slot:first-child{
   margin-left: 0;
 }
 
