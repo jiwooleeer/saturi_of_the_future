@@ -104,7 +104,7 @@ width: 100vw;
 #ks2-6  { grid-column: 51;  grid-row: 21; } 
 #ks2-7  { grid-column: 56; grid-row: 23; } 
 
-.ks_2_container .ks2:nth-child(1) { animation-delay: 0.5s; }
+.ks_2_container .ks2:nth-child(1) { animation-delay: 1.48s; }
 .ks_2_container .ks2:nth-child(2) { animation-delay: 1.58s; }
 .ks_2_container .ks2:nth-child(3) { animation-delay: 1.66s; }
 .ks_2_container .ks2:nth-child(4) { animation-delay: 1.74s; }
