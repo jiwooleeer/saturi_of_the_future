@@ -54,36 +54,25 @@ let isSaving = false;
 // 3. Matter.js 세팅 (canvas2 / matter-container 기준)
 // -----------------------------
 function initMatter() {
-  if (window.__matterInitialized) {
-    console.log("[Matter] already initialized");
-    return false;
-  }
-  window.__matterInitialized = true;
-
   const matterContainer = document.getElementById("matter-container");
   if (!matterContainer || !window.Matter) {
     console.warn("[Matter] container or Matter.js not found");
     return false;
   }
 
-  const { Engine, Render, Runner, Bodies, Composite, Events } = window.Matter;
+  const { Engine, Render, Runner, Bodies, Composite, Events, Mouse, MouseConstraint } = window.Matter;
 
-  // ✅ matter-container 크기 기준
-  matterWidth = matterContainer.clientWidth;
-  matterHeight = matterContainer.clientHeight;
-
-  console.log("[Matter] size", matterWidth, matterHeight);
-
-  if (!matterWidth || !matterHeight) {
-    // 혹시 0 나오면 대충이라도 값 넣기
-    matterWidth = window.innerWidth;
-    matterHeight = 900;
-    console.warn("[Matter] fallback size", matterWidth, matterHeight);
-  }
+  // container 크기
+  matterWidth = matterContainer.clientWidth || window.innerWidth;
+  matterHeight = matterContainer.clientHeight || 900;
 
   engine = Engine.create();
   world = engine.world;
 
+  // ✅ 레티나 포함 픽셀비 고정
+  const pixelRatio = window.devicePixelRatio || 1;
+
+  // ✅ Render 만들기 (pixelRatio를 Render에 먼저 적용)
   render = Render.create({
     element: matterContainer,
     engine,
@@ -92,55 +81,74 @@ function initMatter() {
       height: matterHeight,
       wireframes: false,
       background: "transparent",
+      pixelRatio, // 핵심
     },
   });
 
+  // 캔버스가 DOM 위에서 마우스 이벤트 받도록
+  matterContainer.style.position = "relative";
+  render.canvas.style.position = "absolute";
+  render.canvas.style.left = "0";
+  render.canvas.style.top = "0";
+  render.canvas.style.zIndex = "2";
+  render.canvas.style.pointerEvents = "auto";
+
   Render.run(render);
+
   runner = Runner.create();
   Runner.run(runner, engine);
 
-  // 🔻 바닥 + 양 옆 벽
+  // 바닥 + 벽
   const floorHeight = 40;
   const floorY = matterHeight - floorHeight / 2;
 
-  const floor = Bodies.rectangle(
-    matterWidth / 2,
-    floorY,
-    matterWidth,
-    floorHeight,
-    {
-      isStatic: true,
-      render: { visible: false },
-    }
-  );
+  const floor = Bodies.rectangle(matterWidth / 2, floorY, matterWidth, floorHeight, {
+    isStatic: true,
+    render: { visible: false },
+  });
 
   const wallThickness = 60;
-  const leftWall = Bodies.rectangle(
-    -wallThickness / 2,
-    matterHeight / 2,
-    wallThickness,
-    matterHeight,
-    {
-      isStatic: true,
-      render: { visible: false },
-    }
-  );
-  const rightWall = Bodies.rectangle(
-    matterWidth + wallThickness / 2,
-    matterHeight / 2,
-    wallThickness,
-    matterHeight,
-    {
-      isStatic: true,
-      render: { visible: false },
-    }
-  );
+  const leftWall = Bodies.rectangle(-wallThickness / 2, matterHeight / 2, wallThickness, matterHeight, {
+    isStatic: true,
+    render: { visible: false },
+  });
+
+  const rightWall = Bodies.rectangle(matterWidth + wallThickness / 2, matterHeight / 2, wallThickness, matterHeight, {
+    isStatic: true,
+    render: { visible: false },
+  });
 
   Composite.add(world, [floor, leftWall, rightWall]);
 
+  // ✅ 마우스 드래그
+  const mouse = Mouse.create(render.canvas);
+
+  // Render pixelRatio랑 반드시 동일하게
+  mouse.pixelRatio = pixelRatio;
+
+  // 스크롤/리사이즈 때 마우스 오프셋 갱신 (안 하면 판정이 밀림)
+  const updateMouseOffset = () => {
+    const rect = render.canvas.getBoundingClientRect();
+    Mouse.setOffset(mouse, { x: -rect.left, y: -rect.top });
+  };
+  updateMouseOffset();
+  window.addEventListener("scroll", updateMouseOffset, { passive: true });
+  window.addEventListener("resize", updateMouseOffset);
+
+  const mouseConstraint = MouseConstraint.create(engine, {
+    mouse,
+    constraint: {
+      stiffness: 0.25,
+      damping: 0.1,
+      render: { visible: false },
+    },
+  });
+
+  Composite.add(world, mouseConstraint);
+  render.mouse = mouse;
+
   bodyToElement = new Map();
 
-  // 🔻 물리 위치 → DOM 위치
   Events.on(engine, "afterUpdate", () => {
     bodyToElement.forEach((el, body) => {
       const x = body.position.x;
@@ -150,14 +158,13 @@ function initMatter() {
       const w = el.offsetWidth || 0;
       const h = el.offsetHeight || 0;
 
-      el.style.transform = `translate(${x - w / 2}px, ${
-        y - h / 2
-      }px) rotate(${angle}rad)`;
+      el.style.transform = `translate(${x - w / 2}px, ${y - h / 2}px) rotate(${angle}rad)`;
     });
   });
 
   return true;
 }
+
 
 // -----------------------------
 // 4. 글자 하나 떨어뜨리기
@@ -170,25 +177,31 @@ function spawnFallingText(text) {
   const matterContainer = document.getElementById("matter-container");
   if (!matterContainer) return;
 
-  const { Bodies, Composite } = window.Matter;
+  const { Bodies } = window.Matter;
 
+  // 1) DOM 만들기
   const el = document.createElement("div");
   el.className = "falling-text";
   el.textContent = text;
+
+  // ✅ DOM이 마우스 이벤트를 먹으면 드래그가 씹힐 수 있음
+  // 캔버스가 마우스를 받게 하려면 none 권장
+  el.style.position = "absolute";
+  el.style.pointerEvents = "none";
+el.style.zIndex = "3";
   matterContainer.appendChild(el);
 
-  // 초기 위치는 화면 바깥
+  // 2) 실제 크기 측정
   el.style.transform = "translate(-9999px, -9999px)";
   const bbox = el.getBoundingClientRect();
   const w = bbox.width || 80;
   const h = bbox.height || 30;
 
-  // 🔻 canvas2(=matter-container) 맨 위, 왼쪽 10~35% 범위에서 스폰
+  // 3) 스폰 위치
   const x = matterWidth * (0.1 + 0.25 * Math.random());
-  const y = -h; // 섹션 맨 위에서 살짝 위
+  const y = -h;
 
-  console.log("[spawnFallingText]", text, "→", x, y);
-
+  // 4) 바디 만들기
   const body = Bodies.rectangle(x, y, w, h, {
     restitution: 0.2,
     friction: 0.8,
@@ -196,14 +209,14 @@ function spawnFallingText(text) {
   });
 
   body.render.visible = false;
-  body.isStatic = true;
-  bodyToElement.set(body, el);
-  Composite.add(world, body);
 
-  setTimeout(() => {
-    body.isStatic = false;
-  }, 2000);
+  // ✅ 드래그 가능하게 dynamic 상태 유지
+  body.isStatic = false;
+
+  bodyToElement.set(body, el);
+  Matter.Composite.add(world, body);
 }
+
 
 // -----------------------------
 // 5. Firestore 저장 / 불러오기

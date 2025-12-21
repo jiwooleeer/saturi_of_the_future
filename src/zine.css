@@ -634,7 +634,8 @@ z-index: 1;
   position: absolute;   /* ⭐ 이제 fixed 말고 absolute */
   inset: 0;             /* canvas2 안을 꽉 채우기 */
   pointer-events: none; /* 글자 위에서도 스크롤/클릭 되게 */
-  z-index: 3;           /* 카드들 위에 살짝만 */
+  z-index: 3;  
+    pointer-events: auto;
 }
 
 /* Matter가 만든 <canvas> 백그라운드 제거 */
