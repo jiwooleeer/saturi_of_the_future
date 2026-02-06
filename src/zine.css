@@ -8,10 +8,8 @@ body {
 }
 
 
-
 .canvas{
   width: 100vw;
-  height: 100vh;
   display: flex;
   flex-direction: column;  
   --scale: min(calc(100vw / 1920), calc(100vh / 1080));
