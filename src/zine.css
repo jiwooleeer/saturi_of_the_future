@@ -7,43 +7,51 @@ body {
   overflow-x: hidden;
 }
 
-
 .canvas{
   width: 100vw;
+  height: 100vh;
   display: flex;
-  flex-direction: column;  
-  --scale: min(calc(100vw / 1920), calc(100vh / 1080));
+  flex-direction: column;
   position: relative;
 }
 
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
 
 .ks_1_container{
-    display: grid;
-    position: absolute;
-width: 100vw;
+  display: grid;
+  position: absolute;
+  width: 100vw;
   height: 100vh;
-    grid-template-columns: repeat(64, 30px);
-  grid-template-rows: repeat(36, 30px); 
+  grid-template-columns: repeat(64, 1.5625vw);
+  grid-template-rows: repeat(36, 2.7778vh);
   gap: 0px;
-    scale: 0.95;
-    transform: translateY(-20px);
+  z-index: 1;
 }
-#ks1-1  { grid-column: 6; grid-row: 21; } /* 어 */
-#ks1-2  { grid-column: 11; grid-row: 19; } /* 디 */
-#ks1-3  { grid-column: 16; grid-row: 17; } /* 까 */
-#ks1-4  { grid-column: 21; grid-row: 15; } /* 지 */
-#ks1-5  { grid-column: 26; grid-row: 13; } /* 올 */
-#ks1-6  { grid-column: 31; grid-row: 11; } /* 라 */
-#ks1-7  { grid-column: 36; grid-row: 9; } /* 가 */
-#ks1-8  { grid-column: 41; grid-row: 7; } /* 는 */
-#ks1-9  { grid-column: 46; grid-row: 5; } /* 거 */
-#ks1-10 { grid-column: 51; grid-row: 3; } /* 에 */
-#ks1-11 { grid-column: 56; grid-row: 5; } /* 요 */
-/* 계단식 딜레이 */
-.ks_1_container .ks1:nth-child(1)  { animation-delay: 0s;   }
+
+#ks1-1  { grid-column: 6;  grid-row: 21; }
+#ks1-2  { grid-column: 11; grid-row: 19; }
+#ks1-3  { grid-column: 16; grid-row: 17; }
+#ks1-4  { grid-column: 21; grid-row: 15; }
+#ks1-5  { grid-column: 26; grid-row: 13; }
+#ks1-6  { grid-column: 31; grid-row: 11; }
+#ks1-7  { grid-column: 36; grid-row: 9;  }
+#ks1-8  { grid-column: 41; grid-row: 7;  }
+#ks1-9  { grid-column: 46; grid-row: 5;  }
+#ks1-10 { grid-column: 51; grid-row: 3;  }
+#ks1-11 { grid-column: 56; grid-row: 5;  }
+
+.ks_1_container .ks1:nth-child(1)  { animation-delay: 0s;    }
 .ks_1_container .ks1:nth-child(2)  { animation-delay: 0.08s; }
 .ks_1_container .ks1:nth-child(3)  { animation-delay: 0.16s; }
-.ks_1_container .ks1:nth-child(4)  { animation-delay: 0.254s; }
+.ks_1_container .ks1:nth-child(4)  { animation-delay: 0.254s;}
 .ks_1_container .ks1:nth-child(5)  { animation-delay: 0.32s; }
 .ks_1_container .ks1:nth-child(6)  { animation-delay: 0.40s; }
 .ks_1_container .ks1:nth-child(7)  { animation-delay: 0.48s; }
@@ -52,35 +60,34 @@ width: 100vw;
 .ks_1_container .ks1:nth-child(10) { animation-delay: 0.72s; }
 .ks_1_container .ks1:nth-child(11) { animation-delay: 0.80s; }
 
-@keyframes ks-bounce-up {
-  0%   { transform: translateY(0); }
-  40%  { transform: translateY(-35px); } /* 올라가는 높이 */
-  100% { transform: translateY(0); }
-}
-/* 컨테이너에는 animation 빼고, 자식들에만 줘 */
 .ks_1_container .ks1,
 .ks_2_container .ks2 {
+  width: 7.91vw;
+  height: 9.55vw;
+  object-fit: contain;
   animation-name: ks-bounce-up;
   animation-duration: 0.6s;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
 }
 
-
-
+@keyframes ks-bounce-up {
+  0%   { transform: translateY(0); }
+  40%  { transform: translateY(-2.5vh); }
+  100% { transform: translateY(0); }
+}
 
 .ks_2_container{
-    display: grid;
-    position: absolute;
-width: 100vw;
+  display: grid;
+  position: absolute;
+  width: 100vw;
   height: 100vh;
-    grid-template-columns: repeat(64, 30px);
-  grid-template-rows: repeat(36, 30px); 
+  grid-template-columns: repeat(64, 1.5625vw);
+  grid-template-rows: repeat(36, 2.7778vh);
   gap: 0px;
-    scale: 0.95;
-    transform: translateY(-20px);
-
+  z-index: 1;
 }
+
 .ks_2_container::before {
   content: "";
   position: absolute;
@@ -88,19 +95,19 @@ width: 100vw;
   background-image:
     linear-gradient(to right, rgba(255,255,255,0.3) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255,255,255,0.3) 1px, transparent 1px);
-  background-size: 30px 30px; /* 블럭 크기에 맞춘 칸 */
+  background-size: 1.5625vw 2.7778vh;
   pointer-events: none;
   z-index: 50;
-  visibility: hidden; 
+  visibility: hidden;
 }
 
-#ks2-1  { grid-column: 26; grid-row: 23; }
-#ks2-2  { grid-column: 31; grid-row: 21; } 
-#ks2-3  { grid-column: 36; grid-row: 19; } 
-#ks2-4  { grid-column: 41; grid-row: 21; } 
-#ks2-5  { grid-column: 46; grid-row: 23; } 
-#ks2-6  { grid-column: 51;  grid-row: 21; } 
-#ks2-7  { grid-column: 56; grid-row: 23; } 
+#ks2-1 { grid-column: 26; grid-row: 23; }
+#ks2-2 { grid-column: 31; grid-row: 21; }
+#ks2-3 { grid-column: 36; grid-row: 19; }
+#ks2-4 { grid-column: 41; grid-row: 21; }
+#ks2-5 { grid-column: 46; grid-row: 23; }
+#ks2-6 { grid-column: 51; grid-row: 21; }
+#ks2-7 { grid-column: 56; grid-row: 23; }
 
 .ks_2_container .ks2:nth-child(1) { animation-delay: 1.48s; }
 .ks_2_container .ks2:nth-child(2) { animation-delay: 1.58s; }
@@ -111,168 +118,119 @@ width: 100vw;
 .ks_2_container .ks2:nth-child(7) { animation-delay: 1.98s; }
 
 
-/*전라도*/
-.jr{
+/* =============================================
+   다른 지역 svg (전라도/충청도/강원도/제주도)
+   ============================================= */
+.jr, .cc, .kw, .jj {
   display: block;
   position: absolute;
-  scale: 0.95;
-
-  animation-name: region-bounce-up;
-  animation-duration: 0.6s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: both;
-}
-
-/* 위치 + 시간차 */
-#jr1 { top:75px; left:250px; animation-delay: 0.5s; }
-#jr2 { top:290px; left:610px; animation-delay: 0.7s; }
-#jr3 { top:560px; left:900px; animation-delay: 0.9s; }
-
-/*충청도*/
-.cc{
-  display: block;
-  position: absolute;
-  scale: 0.95;
-
+  z-index: 1;
   animation: region-bounce-up 0.6s ease-out both;
 }
 
-#cc1 { top:50px;  left:30px;  animation-delay: 0.3s; }
-#cc2 { top:150px; left:500px; animation-delay: 0.6s; }
-#cc3 { top:370px; left:30px;  animation-delay: 0.9s; }
+#jr1 { top:4vw;  left:16vw; animation-delay: 0.5s; }
+#jr2 { top:15vw; left:35vw; animation-delay: 0.7s; }
+#jr3 { top:29vw; left:52vw; animation-delay: 0.9s; }
 
-/*강원도*/
-.kw{
-  display: block;
-  position: absolute;
-  scale: 0.95;
+#cc1 { top:2.6vw;  left:1.5vw; animation-delay: 0.3s; }
+#cc2 { top:7.8vw;  left:26vw;  animation-delay: 0.6s; }
+#cc3 { top:21.3vw; left:1.5vw; animation-delay: 0.9s; }
 
-  animation: region-bounce-up 0.6s ease-out both;
-}
+#kw1 { top:3.1vw;  left:1.5vw;  animation-delay: 0.5s;  }
+#kw2 { top:30.6vw; left:20.8vw; animation-delay: 0.14s; }
 
-#kw1 { top:60px;  left:30px;  animation-delay: 0.5s; }
-#kw2 { top:550px; left:400px; animation-delay: 0.14s; }
-
-/*제주도*/
-.jj{
-  display: block;
-  position: absolute;
-  scale: 0.95;
-
-  animation: region-bounce-up 0.6s ease-out both;
-}
-
-#jj1 { top:70px;  left:60px;   animation-delay: 0.3s; }
-#jj2 { top:160px; left:560px;  animation-delay: 0.6s; }
-#jj3 { top:440px; left:1292px; animation-delay: 0.9s; }
-#jj4 { top:620px; left:960px;  animation-delay: 1.2s; }
+#jj1 { top:3.6vw;  left:3.1vw;  animation-delay: 0.3s; }
+#jj2 { top:6.3vw;  left:33.2vw; animation-delay: 0.6s; }
+#jj3 { top:23.9vw; left:67.3vw; animation-delay: 0.9s; }
+#jj4 { top:33.3vw; left:50vw;   animation-delay: 1.2s; }
 
 @keyframes region-bounce-up {
-  0% {
-    transform: translateY(0) scale(0.95);
-  }
-  40% {
-    transform: translateY(-35px) scale(0.95);
-  }
-  100% {
-    transform: translateY(0) scale(0.95);
-  }
+  0%   { transform: translateY(0) scale(0.95); }
+  40%  { transform: translateY(-2.5vh) scale(0.95); }
+  100% { transform: translateY(0) scale(0.95); }
 }
 
 
-
+/* =============================================
+   페이지 이동 화살표
+   ============================================= */
 #nextpage_down {
   position: absolute;
-  bottom: 40px;              /* 페이지 맨 아래에서 띄우고 싶은 만큼 */
+  bottom: 4vh;
   left: 50%;
   transform: translateX(-50%) rotate(90deg);
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
-
-  /* 3.5초 뒤부터: 처음 한 번은 서서히 나타나고 이후엔 계속 위↔아래 */
+  width: 2.6vw;
   animation: nextpage-appear-loop 3.2s ease-in-out 0.7s infinite;
 }
-#nextpage{
-width: 50px;
-position: absolute;
-bottom: 450px;
-right: 70px;
-z-index: 1;
 
-opacity: 0;
-pointer-events: none;    /* 클릭 안 되게 (필요 없으면 지워도 됨) */
-
-  animation: nextpage-show 1s ease-out 5s forwards,
-             nextpage-loop 0.5s ease-in-out 4s infinite;
+#nextpage {
+  width: 2.6vw;
+  position: absolute;
+  bottom: 47vh;
+  right: 3.6vw;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  animation:
+    nextpage-show 1s ease-out 5s forwards,
+    nextpage-loop 0.5s ease-in-out 4s infinite;
 }
 
 @keyframes nextpage-show {
-  0% {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0%   { opacity: 0; transform: translateX(-40px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 
-
-
-/*중간부분*/
-.blank{
-    width: 100%;
-    height: 900px;
-    position: relative;
-    bottom: 0px;
-    left: 0;
-    z-index: -1;
+/* =============================================
+   .blank — 전환 그라디언트 영역
+   ============================================= */
+.blank {
+  width: 100%;
+  height: 47vw;
+  position: relative;
+  z-index: -1;
 }
 
-#ks_blank{ background: linear-gradient(180deg, #FF0561 20%, #F1F1F1 100%);}
-#jr_blank{ background: linear-gradient(180deg, #00B7AB 20%, #F1F1F1 100%);}
-#cc_blank{ background: linear-gradient(180deg, #90C85F 20%, #F1F1F1 100%);}
-#kw_blank{ background: linear-gradient(180deg, #F6C500 20%, #F1F1F1 100%);}
-#jj_blank{ background: linear-gradient(180deg, #FF961E 20%, #F1F1F1 100%);}
+#ks_blank { background: linear-gradient(180deg, #FF0561 20%, #F1F1F1 100%); }
+#jr_blank  { background: linear-gradient(180deg, #00B7AB 20%, #F1F1F1 100%); }
+#cc_blank  { background: linear-gradient(180deg, #90C85F 20%, #F1F1F1 100%); }
+#kw_blank  { background: linear-gradient(180deg, #F6C500 20%, #F1F1F1 100%); }
+#jj_blank  { background: linear-gradient(180deg, #FF961E 20%, #F1F1F1 100%); }
 
-.explain1{
-    position: absolute;
-    top: 250px;
-    left: 64px;
-    z-index: 1;
+.explain1 {
+  position: absolute;
+  top: 13vw;
+  left: 3.3vw;
+  z-index: 1;
+  height: auto;
   transform: translateY(40px);
+}
 
+.explain2 {
+  position: absolute;
+  top: 23.5vw;
+  left: 28.5vw;
+  z-index: 1;
+  height: auto;
 }
 
 
-
-.explain2{
-    position: absolute;
-    top: 450px;
-    left: 550px;
-    z-index: 1;
-
-}
-
-
-
-
-
-
-/*아래부분*/
-.canvas2{
+/* =============================================
+   .canvas2 — 두 번째 화면 (사투리 정보 카드)
+   ============================================= */
+.canvas2 {
   width: 100vw;
-  height: 950px;
+  height: 52.5vw;
   display: flex;
   position: relative;
-  flex-direction: column;  
-  --scale: min(calc(100vw / 1920), calc(100vh / 1080));
+  flex-direction: column;
   background-color: #F1F1F1;
   overflow: hidden;
   opacity: 0;
   transform: translateY(40px);
-
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
@@ -281,269 +239,222 @@ pointer-events: none;    /* 클릭 안 되게 (필요 없으면 지워도 됨) *
   transform: translateY(0);
 }
 
-
-.title{
-    position: absolute;
-    top: 0px;
-    left: 60px;
+.title {
+  position: absolute;
+  top: 2vw;
+  left: 3.125vw;
+  width: 24vw;
 }
 
-#forever_text{
+#forever_text {
   position: absolute;
-  width: 407px;
-  top: 200px;
-  left: 60px;
-
+  width: 21.2vw;
+  top: 12.4vw;
+  left: 3.125vw;
   font-family: "rixsingose-pro", sans-serif;
   font-weight: 300;
-  font-size: 20px;
+  font-size: clamp(13px, 1.04vw, 20px);
   line-height: 150%;
   color: black;
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.name{
+#forever_text_cc {
   position: absolute;
-  top: -1px;   /* 테두리랑 딱 맞게 -1px */
-  left: -1px;
-  z-index: 2;
-
-  color: white;
-
-  border: 1px solid black;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+  width: 21.2vw;
+  top: 9.4vw;
+  left: 3.125vw;
   font-family: "rixsingose-pro", sans-serif;
   font-weight: 300;
-  font-size: 27px;
+  font-size: clamp(13px, 1.04vw, 20px);
+  line-height: 150%;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  z-index: 2;
+  color: white;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: clamp(14px, 1.4vw, 27px);
   line-height: 1;
 }
-.ks_name{  background-color: #FF0561;}
-.jr_name{  background-color: #00B7AB;}
-.cc_name{  background-color: #90C85F;}
-.kw_name{  background-color: #F6C500;}
-.jj_name{  background-color: #FF961E;}
 
+.ks_name { background-color: #FF0561; }
+.jr_name { background-color: #00B7AB; }
+.cc_name { background-color: #90C85F; }
+.kw_name { background-color: #F6C500; }
+.jj_name { background-color: #FF961E; }
 
+.ks_line { color: #FF0561; }
+.jr_line { color: #00B7AB; }
+.cc_line { color: #90C85F; }
+.kw_line { color: #F6C500; }
+.jj_line { color: #FF961E; }
 
-.ks_line{  color: #FF0561;}
-.jr_line{  color: #00B7AB;}
-.cc_line{  color: #90C85F;}
-.kw_line{  color: #F6C500;}
-.jj_line{  color: #FF961E;}
-
-
-/*이니시*/
-.inishi{
+.inishi {
   background-color: white;
   border: 1px solid black;
   position: absolute;
-width: 400px;
-  top: 100px;
-  left: 780px;
+  width: 21.8vw;
+  left: 43.6vw;
 }
 
-.ks_inishi{   height: 270px;}
-.jr_inishi{   height: 350px;}
-.cc_inishi{   height: 270px;}
-.kw_inishi{   height: 210px;}
-.jj_inishi{   height: 270px;}
-
+.ks_inishi { height: 15vw;   top: 5.2vw; }
+.jr_inishi { height: 19.2vw; top: 5.2vw; }
+.cc_inishi { height: 15vw;   top: 5.2vw; }
+.kw_inishi { height: 11.9vw; top: 5.2vw; }
+.jj_inishi { height: 15vw;   top: 5.2vw; }
 
 #inishi_name {
-  width: 110px;
-  height: 55px;
+  width: 5.7vw;
+  height: 2.9vw;
 }
 
 #inishi_text {
-  position: absolute;      /* 흰 박스 전체를 덮게 */
-  inset: 0;                /* top, right, bottom, left = 0 */
-
+  position: absolute;
+  inset: 0;
   display: flex;
- justify-content: flex-start; /* 🟡 위부터 정렬 */
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-
-  gap: 30px;
-
-  padding-top: 90px;
-  box-sizing: border-box;      
-
-}
-.explain3{
-    position: absolute;
-    top: 30px;
-    left: 780px;
-    width: 400px;
+  gap: 1.56vw;
+  padding-top: 4.7vw;
+  box-sizing: border-box;
 }
 
+.explain3 {
+  position: absolute;
+  top: 1.56vw;
+  left: 43.6vw;
+  width: 21.8vw;
+}
 
-/*특수어휘*/
-.vocab{
+.vocab {
   background-color: white;
   border: 1px solid black;
   position: absolute;
-
-  width: 400px;
-  left: 780px;
+  width: 21.8vw;
+  left: 43.6vw;
 }
 
-.ks_vocab{   height: 350px; top: 400px;}
-.jr_vocab{   height: 410px; top: 480px;}
-.cc_vocab{   height: 350px; top: 400px;}
-.kw_vocab{   height: 270px; top: 340px;}
-.jj_vocab{   height: 410px; top: 400px;}
+.ks_vocab { height: 19.2vw; top: 21.8vw; }
+.jr_vocab { height: 22.4vw; top: 26vw;   }
+.cc_vocab { height: 19.2vw; top: 21.8vw; }
+.kw_vocab { height: 15vw;   top: 18.7vw; }
+.jj_vocab { height: 22.4vw; top: 21.8vw; }
 
 #vocab_name {
-  width: 140px;
-  height: 55px;
+  width: 7.3vw;
+  height: 2.9vw;
 }
 
 #vocab_text {
-  position: absolute;      /* 흰 박스 전체를 덮게 */
-  inset: 0;                /* top, right, bottom, left = 0 */
-
+  position: absolute;
+  inset: 0;
   display: flex;
-  justify-content: flex-start; /* 🟡 위부터 정렬 */
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-
-  gap: 30px;
-
-  padding-top: 90px; /* ✨ 위쪽만 여백 */
-  box-sizing: border-box;             /* ⭐ 글자 사이 간격 (Figma의 Gap) */
+  gap: 1.56vw;
+  padding-top: 4.7vw;
+  box-sizing: border-box;
 }
 
-
-/*어미*/
-.ending{
+.ending {
   background-color: white;
   border: 1px solid black;
   position: absolute;
-
-  width: 400px;
-  top: 100px;
-  left: 1215px;
+  width: 21.8vw;
+  top: 5.2vw;
+  left: 67.3vw;
 }
 
-.ks_ending{  height: 580px;}
-.jr_ending{   height: 410px;}
-.cc_ending{   height: 410px;}
-.kw_ending{   height: 410px;}
-.jj_ending{   height: 410px;}
-
+.ks_ending { height: 31.2vw; }
+.jr_ending { height: 22.4vw; }
+.cc_ending { height: 22.4vw; }
+.kw_ending { height: 22.4vw; }
+.jj_ending { height: 22.4vw; }
 
 #ending_name {
-  width: 90px;
-  height: 55px;
+  width: 4.7vw;
+  height: 2.9vw;
 }
 
 #ending_text {
-  position: absolute;      /* 흰 박스 전체를 덮게 */
-  inset: 0;                /* top, right, bottom, left = 0 */
-
+  position: absolute;
+  inset: 0;
   display: flex;
-  justify-content: flex-start; /* 🟡 위부터 정렬 */
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-
-  gap: 30px;
-
-  padding-top: 90px; /* ✨ 위쪽만 여백 */
-  box-sizing: border-box;  
+  gap: 1.56vw;
+  padding-top: 4.7vw;
+  box-sizing: border-box;
 }
 
-.ps{
+.ps {
   font-family: "rixsingose-pro", sans-serif;
   font-weight: 300;
-  font-size: 15px;
+  font-size: clamp(10px, 0.78vw, 15px);
   line-height: 150%;
   color: #B1B1B1;
-
   position: absolute;
 }
-#ps_ks{
-  top: 780px;
-  left: 780px;
-}
-#ps_jr{
-  top: 730px;
-  left: 1215px;
-}
-#ps_cc{
-  top: 730px;
-  left: 1215px;
-}
-#ps_kw{
-  top: 630px;
-  left: 780px;
-}
-#ps_jj{
-  top: 730px;
-  left: 1215px;
-}
-.hay{
-  position: absolute;
 
-  left: 1215px;
-  width: 400px;
-  height: 170px;
+#ps_ks { top: 42.6vw; left: 44.6vw; }
+#ps_jr { top: 40vw;   left: 67.3vw; }
+#ps_cc { top: 40vw;   left: 67.3vw; }
+#ps_kw { top: 34.8vw; left: 43.6vw; }
+#ps_jj { top: 40vw;   left: 67.3vw; }
+
+.hay {
+  position: absolute;
+  left: 67.3vw;
+  width: 21.8vw;
+  height: 9.85vw;
   z-index: 10;
-  padding: 24px 32px 22px;
-
+  padding: 1.25vw 1.67vw 1.15vw;
   color: white;
   border: 1px solid black;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-
   box-sizing: border-box;
 }
 
-.ks_hay{  background-color: #FF0561; top: 710px;}
-.jr_hay{  background-color: #00B7AB; top: 540px;}
-.cc_hay{  background-color: #90C85F; top: 540px;}
-.kw_hay{  background-color: #F6C500; top: 540px;}
-.jj_hay{  background-color: #FF961E; top: 540px;}
-
+.ks_hay { background-color: #FF0561; top: 38vw;   }
+.jr_hay { background-color: #00B7AB; top: 29.1vw; }
+.cc_hay { background-color: #90C85F; top: 29.1vw; }
+.kw_hay { background-color: #F6C500; top: 29.1vw; }
+.jj_hay { background-color: #FF961E; top: 29.1vw; }
 
 .hay-title {
   font-family: "rixsingose-pro", sans-serif;
   font-weight: 300;
-  font-size: 23px;
+  font-size: clamp(13px, 1.2vw, 23px);
   line-height: 1.4;
   text-align: center;
 }
 
-/* 인풋 감싸는 박스 + 밑줄 */
 .hay-input-wrapper {
   width: 100%;
-  margin-top: 26px;
-
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-  padding-bottom: 6px;
-
-  display: flex;
-  align-items: center;
-}
-
-
-/* 입력 영역 박스 + 밑줄은 그대로 */
-.hay-input-wrapper {
-  width: 100%;
-  margin-top: 26px;
-
-  border-bottom: 2px solid rgba(255, 255, 255, 0.4);
-  padding-bottom: 6px;
-
+  margin-top: 1.35vw;
+  border-bottom: 2px solid rgba(255,255,255,0.4);
+  padding-bottom: 0.31vw;
   display: flex;
   align-items: center;
 }
@@ -552,111 +463,68 @@ width: 400px;
   border-bottom-color: #ffffff;
 }
 
-/* 실제 입력되는 div */
 .hay-editable {
   width: 100%;
-  min-height: 24px;
+  min-height: 1.25vw;
   outline: none;
   border: none;
-
-  font-family: "rixsingose-pro", sans-serif;
-  font-style: normal;
+  font-family: "Apple SD Gothic Neo", sans-serif;
   font-weight: 300;
-  font-size: 17px;
+  font-size: clamp(12px, 0.885vw, 17px);
   line-height: 1.4;
   text-align: center;
-
   color: #ffffff;
-
-  /* 폰트 합성/두께 합성 금지 */
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  caret-color: #ffffff;
 }
 
-/* 플레이스홀더: 내용이 비어있을 때만 표시 */
 .hay-editable:empty::before {
   content: attr(data-placeholder);
   display: block;
-
-  font-family: "rixsingose-pro", sans-serif;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 17px;
-  line-height: 1.4;
-  text-align: center;
-
-  color: rgba(255, 255, 255);
-  pointer-events: none;
-}
-
-/* 캐럿 컬러는 전체에 걸어주기 */
-.hay-editable {
-  caret-color: #ffffff;
-}
-.hay-editable,
-.hay-editable:empty::before {
   font-family: "Apple SD Gothic Neo", sans-serif;
   font-weight: 300;
-  font-size: 17px;
-}
-
-
-.nextpage{
-width: 50px;
-position: absolute;
-top: 509px;
-right: 40px;
-z-index: 1;
-
-  opacity: 0;              /* 처음엔 안 보이게 */
-  pointer-events: none;    /* 클릭 안 되게 (필요 없으면 지워도 됨) */
-
-  animation: nextpage-show 1s ease-out 5s forwards,
-             nextpage-loop 0.5s ease-in-out 4s infinite;
-}
-
-@keyframes nextpage-show {
-  0% {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-#ks-canvas {
-  position: relative;  /* 이걸 기준으로 absolute 좌표 계산 */
-}
-
-#floating-explain {
-  position: absolute;   /* 페이지 기준 */
+  font-size: clamp(12px, 0.885vw, 17px);
+  line-height: 1.4;
+  text-align: center;
+  color: rgba(255,255,255,0.7);
   pointer-events: none;
-  display: none;
-  z-index: 999;
 }
 
-#floating-explain img {
-  display: block;
-  max-width: none;   /* 원본 크기 그대로 */
-  height: auto;
+.line {
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: clamp(18px, 1.93vw, 37px);
+  text-align: center;
+  cursor: default;
+  user-select: none;
+  position: relative;
+  z-index: 11;
+  pointer-events: auto;
 }
 
+.falling-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  font-family: "rixsingose-pro", sans-serif;
+  font-weight: 300;
+  font-size: clamp(14px, 1.3vw, 25px);
+  color: var(--accent);
+  text-align: center;
+  pointer-events: none;
+  z-index: 4;
+}
 
-
-
-
-
-/* 🔻 Matter가 만들어주는 <canvas>도 강제로 전체 화면으로 */
 #matter-container {
   position: absolute;
   inset: 0;
-  z-index: 1;            /* ✅ 캔버스는 아래로 */
-  pointer-events: none;  /* ✅ 컨테이너는 클릭 절대 먹지 말기 */
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* Matter가 만든 <canvas> 백그라운드 제거 */
 #matter-container canvas {
   width: 100%;
   height: 100%;
@@ -664,57 +532,47 @@ z-index: 1;
   position: absolute;
   inset: 0;
   background: transparent !important;
-
-  pointer-events: auto;  /* ✅ 드래그는 캔버스가 받기 */
-}
-.line{
-  font-family: "rixsingose-pro", sans-serif;
-  font-weight: 300;
-  font-size: 37px;
-  text-align: center;
-  cursor: default;      /* I자 커서 말고 일반 화살표로 */
-  user-select: none;  
-
-  position: relative;
-  z-index: 11;
   pointer-events: auto;
 }
-/* 떨어지는 글자 스타일 */
-.falling-text {
-  position: absolute;        /* ⭐ 좌표를 transform 기준으로 정확히 쓰게 */
-  left: 0;
-  top: 0;
 
-  white-space: nowrap;
-
-  font-family: "rixsingose-pro", sans-serif;
-  font-weight: 300;
-  font-size: 25px;
-  color: var(--accent);
-
-  text-align: center;
-  pointer-events: none;
-  z-index: 4;                /* 캔버스·박스들보다 위에 오게 */
-}
-/* 기본값 (혹시 data-region 없을 때) */
-:root{
-  --accent: #FF0561;
-}
-
-/* 지역별 포인트 컬러 */
-.canvas2[data-region="ks"]{ --accent: #FF0561; } /* 경상 */
-.canvas2[data-region="jr"]{ --accent: #00B7AB; } /* 전라 */
-.canvas2[data-region="cc"]{ --accent: #90C85F; } /* 충청 */
-.canvas2[data-region="kw"]{ --accent: #F6C500; } /* 강원 */
-.canvas2[data-region="jj"]{ --accent: #FF961E; } /* 제주 */
-
-
-#dialectInput{
+#dialectInput {
   position: relative;
   z-index: 10;
   pointer-events: auto;
 }
 
+#floating-explain {
+  position: absolute;
+  pointer-events: none;
+  display: none;
+  z-index: 999;
+}
 
+#floating-explain img {
+  display: block;
+  max-width: none;
+  height: auto;
+}
 
+:root { --accent: #FF0561; }
 
+.canvas2[data-region="ks"] { --accent: #FF0561; }
+.canvas2[data-region="jr"] { --accent: #00B7AB; }
+.canvas2[data-region="cc"] { --accent: #90C85F; }
+.canvas2[data-region="kw"] { --accent: #F6C500; }
+.canvas2[data-region="jj"] { --accent: #FF961E; }
+
+#ks-canvas { position: relative; }
+
+.nextpage {
+  width: 2.6vw;
+  position: absolute;
+  top: 26.5vw;
+  right: 2.1vw;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  animation:
+    nextpage-show 1s ease-out 5s forwards,
+    nextpage-loop 0.5s ease-in-out 4s infinite;
+}
