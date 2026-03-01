@@ -62,17 +62,14 @@ function initMatter() {
 
   const { Engine, Render, Runner, Bodies, Composite, Events, Mouse, MouseConstraint } = window.Matter;
 
-  // container 크기
   matterWidth = matterContainer.clientWidth || window.innerWidth;
   matterHeight = matterContainer.clientHeight || 900;
 
   engine = Engine.create();
   world = engine.world;
 
-  // ✅ 레티나 포함 픽셀비 고정
   const pixelRatio = window.devicePixelRatio || 1;
 
-  // ✅ Render 만들기 (pixelRatio를 Render에 먼저 적용)
   render = Render.create({
     element: matterContainer,
     engine,
@@ -81,26 +78,23 @@ function initMatter() {
       height: matterHeight,
       wireframes: false,
       background: "transparent",
-      pixelRatio, // 핵심
+      pixelRatio,
     },
   });
 
-  // 캔버스가 DOM 위에서 마우스 이벤트 받도록
   matterContainer.style.position = "relative";
   render.canvas.style.position = "absolute";
   render.canvas.style.left = "0";
   render.canvas.style.top = "0";
   render.canvas.style.zIndex = "1";
-render.canvas.style.pointerEvents = "auto";
-render.canvas.style.background = "transparent";
-
+  render.canvas.style.pointerEvents = "auto";
+  render.canvas.style.background = "transparent";
 
   Render.run(render);
 
   runner = Runner.create();
   Runner.run(runner, engine);
 
-  // 바닥 + 벽
   const floorHeight = 40;
   const floorY = matterHeight - floorHeight / 2;
 
@@ -122,10 +116,7 @@ render.canvas.style.background = "transparent";
 
   Composite.add(world, [floor, leftWall, rightWall]);
 
-  // ✅ 마우스 드래그
   const mouse = Mouse.create(render.canvas);
-    // ✅ (중요) Matter가 canvas 위에서 휠 스크롤을 막는 문제 해결
-  // canvas 위에 마우스가 있으면 wheel 이벤트를 Matter가 잡아먹어서 페이지 스크롤이 멈춘 것처럼 보임
   try {
     const wheelEvents = ["wheel", "mousewheel", "DOMMouseScroll"];
     wheelEvents.forEach((evt) => {
@@ -135,14 +126,9 @@ render.canvas.style.background = "transparent";
     console.warn("[Matter] wheel unbind fail", err);
   }
 
-  // ✅ 터치패드/모바일 스크롤 허용
   render.canvas.style.touchAction = "pan-y";
-
-
-  // Render pixelRatio랑 반드시 동일하게
   mouse.pixelRatio = pixelRatio;
 
-  // 스크롤/리사이즈 때 마우스 오프셋 갱신 (안 하면 판정이 밀림)
   const updateMouseOffset = () => {
     const rect = render.canvas.getBoundingClientRect();
     Mouse.setOffset(mouse, { x: -rect.left, y: -rect.top });
@@ -185,8 +171,6 @@ render.canvas.style.background = "transparent";
 // -----------------------------
 // 4. 글자 하나 떨어뜨리기
 // -----------------------------
-
-
 function spawnFallingText(text) {
   if (!text || !engine || !world) return;
 
@@ -195,29 +179,23 @@ function spawnFallingText(text) {
 
   const { Bodies } = window.Matter;
 
-  // 1) DOM 만들기
   const el = document.createElement("div");
   el.className = "falling-text";
   el.textContent = text;
 
-  // ✅ DOM이 마우스 이벤트를 먹으면 드래그가 씹힐 수 있음
-  // 캔버스가 마우스를 받게 하려면 none 권장
   el.style.position = "absolute";
   el.style.pointerEvents = "none";
-el.style.zIndex = "3";
+  el.style.zIndex = "3";
   matterContainer.appendChild(el);
 
-  // 2) 실제 크기 측정
   el.style.transform = "translate(-9999px, -9999px)";
   const bbox = el.getBoundingClientRect();
   const w = bbox.width || 80;
   const h = bbox.height || 30;
 
-  // 3) 스폰 위치
   const x = matterWidth * (0.1 + 0.25 * Math.random());
   const y = -h;
 
-  // 4) 바디 만들기
   const body = Bodies.rectangle(x, y, w, h, {
     restitution: 0.2,
     friction: 0.8,
@@ -225,8 +203,6 @@ el.style.zIndex = "3";
   });
 
   body.render.visible = false;
-
-  // ✅ 드래그 가능하게 dynamic 상태 유지
   body.isStatic = false;
 
   bodyToElement.set(body, el);
@@ -242,29 +218,44 @@ async function saveText() {
 
   const value = inputEl.innerText.trim();
   if (!value) return;
-
   if (isSaving) return;
+
+  // ✅ 1. 글자수 제한 (15자)
+  if (value.length > 15) {
+    alert("15자 이내로 입력해주세요.");
+    return;
+  }
+
+  // ✅ 2. 같은 글자 연속 반복 방지 (ㅣㅣㅣㅣ 등 4개 이상 연속)
+  if (/(.)\1{3,}/.test(value)) {
+    alert("같은 글자를 너무 많이 반복할 수 없어요.");
+    return;
+  }
+
+  // ✅ 3. 동일 단어/구절 3회 이상 반복 방지 (예: "바보 바보 바보")
+  const wordRepeatPattern = /(.{1,7})(\s*\1){2,}/;
+  if (wordRepeatPattern.test(value)) {
+    alert("같은 내용을 반복할 수 없어요.");
+    return;
+  }
+
   isSaving = true;
 
   try {
     await addDoc(collection(db, getInputsCollectionName()), {
-  text: value,
-  created: Date.now(),
-});
-
-
+      text: value,
+      created: Date.now(),
+    });
     spawnFallingText(value);
     inputEl.innerHTML = "";
   } finally {
-    setTimeout(() => {
-      isSaving = false;
-    }, 50);
+    setTimeout(() => { isSaving = false; }, 50);
   }
 }
 
 
 async function loadExistingTexts() {
-const inputsCol = collection(db, getInputsCollectionName());
+  const inputsCol = collection(db, getInputsCollectionName());
   const q = query(inputsCol, orderBy("created", "asc"));
   const snapshot = await getDocs(q);
 
@@ -288,7 +279,6 @@ function setupInput() {
 
   const canvas = document.querySelector("#matter-container canvas");
 
-  // ✅ 입력칸 클릭/드래그 때 캔버스가 가로채지 않게
   inputEl.addEventListener("pointerdown", (e) => {
     e.stopPropagation();
   });
@@ -301,10 +291,24 @@ function setupInput() {
     if (canvas) canvas.style.pointerEvents = "auto";
   });
 
+  // ✅ 입력 중 실시간 15자 제한
+  inputEl.addEventListener("input", () => {
+    const text = inputEl.innerText;
+    if (text.length > 15) {
+      inputEl.innerText = text.slice(0, 15);
+      // 커서를 끝으로 이동
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(inputEl);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+  });
+
   // 엔터로 저장
   inputEl.addEventListener("keydown", (e) => {
     if (e.isComposing) return;
-
     if (e.key === "Enter") {
       e.preventDefault();
       saveText();
@@ -313,14 +317,13 @@ function setupInput() {
 }
 
 
-
 // -----------------------------
 // 7. 초기화 (Matter + Firestore) → 스크롤 시 시작
 // -----------------------------
 let canvas2EffectStarted = false;
 
 async function startCanvas2Effects() {
-  if (canvas2EffectStarted) return;   // 중복 방지
+  if (canvas2EffectStarted) return;
   canvas2EffectStarted = true;
 
   const hasHay = document.getElementById("hay");
@@ -337,25 +340,14 @@ async function startCanvas2Effects() {
 
   setupInput();
 
-
   await loadExistingTexts();
 }
-
-
-
-
-
-
-
-
-
-
 
 
 window.addEventListener("load", () => {
   const explainBox = document.getElementById("floating-explain");
   const explainImg = document.getElementById("explainImg");
-  const lines = document.querySelectorAll(".line"); // 클래스 이름 일치 확인!
+  const lines = document.querySelectorAll(".line");
 
   let lastHoveredLine = null;
 
@@ -365,10 +357,7 @@ window.addEventListener("load", () => {
     const rectLine    = lastHoveredLine.getBoundingClientRect();
     const rectExplain = explainBox.getBoundingClientRect();
 
-    // line 기준으로 왼쪽 20px
     const left = rectLine.left + window.scrollX - rectExplain.width - 20;
-
-    // 세로는 같은 선상(가운데 정렬)
     const top  = rectLine.top + window.scrollY
                + rectLine.height / 2
                - rectExplain.height / 2;
@@ -383,8 +372,8 @@ window.addEventListener("load", () => {
       if (!key || !explainImg || !explainBox) return;
 
       lastHoveredLine = line;
-const region = getRegion();
-explainImg.src = `./zine/${region}/${key}.svg`;
+      const region = getRegion();
+      explainImg.src = `./zine/${region}/${key}.svg`;
       explainBox.style.display = "block";
 
       if (explainImg.complete) {
@@ -402,10 +391,7 @@ explainImg.src = `./zine/${region}/${key}.svg`;
 });
 
 
-
-
-
-let canvas2Started = false;  // 한 번만 시작하게 플래그
+let canvas2Started = false;
 
 function handleCanvas2Scroll() {
   const canvas2 = document.querySelector(".canvas2");
@@ -418,7 +404,7 @@ function handleCanvas2Scroll() {
     canvas2Started = true;
     canvas2.classList.add("active");
 
-    startCanvas2Effects();   // ✨ 여기서 아래쪽 이벤트 시작
+    startCanvas2Effects();
 
     window.removeEventListener("scroll", handleCanvas2Scroll);
   }
@@ -436,7 +422,6 @@ function goToNextPage() {
 
   if (idx === -1) return;
 
-  // 🔥 마지막(jj)에서 인터랙티브 페이지로
   if (idx === PAGE_ORDER.length - 1) {
     window.location.href = "./interactive.html";
     return;
@@ -451,14 +436,13 @@ function goToPrevPage() {
   const current = getRegion();
   const idx = PAGE_ORDER.indexOf(current);
 
-  if (idx <= 0) return; // ks면 멈춤
+  if (idx <= 0) return;
 
   const prev = PAGE_ORDER[idx - 1];
   window.location.href = `./${prev}_zine.html`;
 }
 
 window.addEventListener("keydown", (e) => {
-  // 입력 중이면 막기 (contenteditable + input/textarea)
   const active = document.activeElement;
   const isTyping =
     (active && active.isContentEditable) ||
@@ -476,4 +460,3 @@ window.addEventListener("keydown", (e) => {
     goToPrevPage();
   }
 });
-
