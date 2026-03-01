@@ -1,9 +1,10 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /inputs_{region}/{docId} {
-      allow read: if true;
-      allow create: if request.resource.data.text is string
+    match /{collection}/{docId} {
+      allow read: if collection.matches('inputs_(ks|jr|cc|kw|jj)');
+      allow create: if collection.matches('inputs_(ks|jr|cc|kw|jj)')
+                    && request.resource.data.text is string
                     && request.resource.data.text.size() <= 15
                     && request.resource.data.text.size() >= 1;
       allow update, delete: if false;
